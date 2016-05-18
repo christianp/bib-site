@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{entry.title}} - {{ parent() }}{% endblock title %}
+
+{% block content %}
+<h1>{{entry.title}}</h1>
+<h2 class="author">{{entry.fields['author']}}</h2>
+<ul>
+	{%for url in entry.urls %}
+	<li><a href="{{url}}">{{url}}</a></li>
+	{% endfor %}
+</ul>
+<blockquote>
+	{{entry.fields['abstract']}}
+</blockquote>
+<p><a href="{{reverse('delete_entry',{'key':entry.key})}}">Delete</a></p>
+
+
+<hr>
+<div class="fields">
+<dl>
+	{% for key,value in entry.fields %}
+	<dt>{{key}}</dt>
+	<dd>{{value}}</dd>
+	{% endfor %}
+</dl>
+</div>
+<hr>
+<pre>{{entry.as_bib()}}</pre>
+{% endblock content %}

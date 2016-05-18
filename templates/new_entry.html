@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="">
+	<div class="field">
+		<label>
+			Type
+		</label>
+		<select name="type" class="form-control">
+			{% for option,text in form.fields.type.options %}
+				<option {% if option==form.data.type %}selected{% endif %} value="{{option}}">{{text}}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="field">
+		<label>
+			Key
+		</label>
+		<input type="text" name="key" class="form-control" value="{{form.data.key}}">
+	</div>
+	<div class="field">
+		<label>
+			Title
+		</label>
+		<input type="text" name="title" class="form-control" value="{{form.data.title}}">
+	</div>
+	<div class="field">
+		<label>
+			URL
+		</label>
+		<input type="text" name="url" class="form-control" value="{{form.data.url}}">
+	</div>
+	<div class="field">
+		<label>
+			Author(s)
+		</label>
+		<input type="text" name="author" class="form-control" value="{{form.data.author}}">
+	</div>
+	<div class="field">
+		<label>
+		    Comment
+		</label>
+        <textarea name="comment" class="form-control">{{form.data.comment}}</textarea>
+	</div>
+	<button type="submit">Submit</button>
+</form>
+{% endblock content %}

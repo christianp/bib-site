@@ -1,0 +1,69 @@
+* {
+	box-sizing: border-box;
+}
+html {
+	font-family: sans-serif;
+	font-size: 16px;
+	color: #333;
+}
+
+header {
+	text-align: center;
+	margin-bottom: 3em;
+}
+
+header a {
+	text-decoration: none;
+	color: inherit;
+}
+
+footer {
+    margin-top: 5rem;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+#search input[name="q"] {
+	width: 100%;
+}
+
+ul.entries {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.entries li {
+	margin: 1em;
+	background: hsl(240,60%,93%);
+	padding: 1em;
+	display: inline-block;
+	flex-grow: 1;
+}
+
+.entries li > a {
+	font-size: 1.3em;
+	text-decoration: none;
+	color: #111;
+}
+
+form .field {
+	display: flex;
+	margin: 1em 0;
+}
+form .field label {
+	margin-right: 1rem;
+	width: 6rem;
+	text-align: right;
+	line-height: 3rem;
+	font-weight: bold;
+}
+form .field .form-control {
+	flex-grow: 1;
+	font-size: 2rem;
+	border: none;
+	background: #eee;
+	margin: 0.2em 0;
+	padding: 0.1em 0.5em;
+}
