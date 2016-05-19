@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'hafriedlander\\Peg' => array($vendorDir . '/hnesk/php-peg/lib'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'SimplePie' => array($vendorDir . '/simplepie/simplepie/library'),
 );

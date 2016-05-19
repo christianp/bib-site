@@ -38,10 +38,31 @@
 	</div>
 	<div class="field">
 		<label>
+		    Abstract
+		</label>
+        <textarea name="abstract" class="form-control">{{form.data.abstract}}</textarea>
+	</div>
+	<div class="field">
+		<label>
 		    Comment
 		</label>
         <textarea name="comment" class="form-control">{{form.data.comment}}</textarea>
 	</div>
-	<button type="submit">Submit</button>
+    <h2>Extra fields</h2>
+    <div id="extra-fields">
+    {% for subform in form.data.extra_fields %}
+    <div class="field">
+        <input type="text" name="extra_fields-{{loop.index-1}}-name" class="label-input form-control" value="{{subform.name}}">
+        <input type="text" name="extra_fields-{{loop.index-1}}-value" class="form-control" value="{{subform.value}}">
+        <button type="button" class="btn delete-field">x</button>
+    </div>
+    {% endfor %}
+    </div>
+    <p><button class="btn" type="button" id="add-field">Add a field</button></p>
+	<button class="btn big" type="submit">Submit</button>
 </form>
 {% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{root}}static/extra_fields.js"></script>
+{% endblock scripts %}

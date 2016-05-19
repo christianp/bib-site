@@ -3,6 +3,6 @@
 {% block content %}
 <form method="POST">
     <p>Really delete {{entry.title}}?</p>
-    <button type="submit">Yes</button>
+	<button class="btn" type="submit">Yes</button> <a href="{{reverse('view_entry',{'key':entry.key})}}">Cancel</a>
 </form>
 {% endblock content %}

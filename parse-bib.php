@@ -166,6 +166,14 @@ class BibEntry {
 		}
 	}
 
+	function pdf() {
+		foreach($this->urls as $url) {
+			if(preg_match('#(?:\.pdf$)|(?:arxiv\.org/pdf)#',$url)) {
+				return $url;
+			}
+		}
+	}
+
 	function as_bib() {
 		$out = "@{$this->type}{{$this->key},\n";
 		$fs = array();
@@ -291,10 +299,13 @@ function parse_braced($source) {
 function bib_string($str) {
 	global $latex_accents;
 	global $latex_specials;
-	$str = str_replace('\\','\\backslash',$str);
+    if(preg_match('/^\d+$/',$str)) {
+        return $str;
+    }
+	$str = str_replace('\\\\','\\backslash',$str);
     $str = preg_replace('/[{}]/','{\\\$0}',$str);
 	foreach($latex_accents as $escape=>$chr) {
-		$str = str_replace($chr,$escape,$str);
+		$str = str_replace($chr,'{'.$escape.'}',$str);
 	}
 	foreach($latex_specials as $escape=>$chr) {
 		$str = str_replace($chr,'{\\'.$escape.'}',$str);

@@ -5,11 +5,18 @@ $BIB->router->map('GET','/', function() {
 	require __DIR__ . '/views/index.php';
 },'index');
 
-$BIB->router->map('GET','/entry/[*:key]',function($entry_key) {
+$BIB->router->map('GET','/entry/[key:key]',function($entry_key) {
 	require __DIR__ . '/views/view_entry.php';
 },'view_entry');
 
-$BIB->router->map('GET|POST','/entry/[*:key]/delete',array(
+$BIB->router->map('GET|POST','/entry/[key:key]/edit',array(
+    'view'=>function($entry_key) {
+        require __DIR__ . '/views/edit_entry.php';
+    },
+    'login_required' => true
+),'edit_entry');
+
+$BIB->router->map('GET|POST','/entry/[key:key]/delete',array(
     'view'=>function($entry_key) {
         require __DIR__ . '/views/delete_entry.php';
     },
@@ -40,7 +47,7 @@ if( $match) {
     $target = $match['target'];
     if(is_array($target) && isset($target['login_required'])) {
         if(!$BIB->logged_in()) {
-            redirect(reverse('login'));
+            redirect(reverse('login')."?".http_build_query(array('next'=>$_SERVER['REQUEST_URI'])));
         }
     }
     $view = is_callable($target) ? $target : $target['view'];

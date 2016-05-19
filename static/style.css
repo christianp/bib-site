@@ -23,6 +23,34 @@ footer {
     color: #555;
 }
 
+.btn {
+	border: none;
+	padding: 0.5em 1em;
+	display: inline-block;
+	background: hsl(240,40%,70%);
+	color: white;
+	text-decoration: none;
+	margin: 0.1em;
+	border-radius: 0.1em;
+	text-align: center;
+}
+
+.btn.big {
+	font-size: 2em;
+}
+
+.btn:hover {
+	background: hsl(240,40%,80%);
+}
+
+.btn.danger {
+	background: hsl(0,40%,70%);
+}
+
+.btn.danger:hover {
+	background: hsl(0,40%,80%);
+}
+
 #search input[name="q"] {
 	width: 100%;
 }
@@ -40,6 +68,7 @@ ul.entries {
 	padding: 1em;
 	display: inline-block;
 	flex-grow: 1;
+    box-shadow: 0 3px 3px #ccc;
 }
 
 .entries li > a {
@@ -51,19 +80,70 @@ ul.entries {
 form .field {
 	display: flex;
 	margin: 1em 0;
+	flex-wrap: wrap;
+}
+form .field :not(:last-child) {
+	margin-right: 1rem;
 }
 form .field label {
-	margin-right: 1rem;
 	width: 6rem;
 	text-align: right;
 	line-height: 3rem;
 	font-weight: bold;
+	flex: 0 1 6rem;
 }
 form .field .form-control {
-	flex-grow: 1;
+	flex: 1 1 auto;
 	font-size: 2rem;
 	border: none;
 	background: #eee;
-	margin: 0.2em 0;
+	margin-top: 0.2em;
+    margin-bottom: 0.2em;
 	padding: 0.1em 0.5em;
+	min-width: 6em;
+}
+form .field .form-control.label-input {
+    max-width: 6em;
+    text-align: right;
+}
+
+.top {
+	display: flex;
+}
+.top .pdf {
+	flex: 1 0 30%;
+	min-height: 400px;
+}
+.top .info {
+	margin-right: 3em;
+	flex: 1 1 50%;
+}
+.top .info .abstract {
+	padding: 1rem 2rem;
+	font-size: 1.2rem;
+	margin: 2rem 0;
+	line-height: 1.5em;
+}
+
+.top .info pre {
+	overflow-x: auto;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.links {
+	list-style: none;
+	padding: 0;
+}
+
+.link {
+	margin: 0.5em 0;
+	border-bottom: 2px solid hsl(240,40%,95%);
+	padding: 0.5em;
+	background: hsl(240,40%,97%);
+}
+
+.link a {
+	text-decoration: none;
+	word-break: break-all;
 }

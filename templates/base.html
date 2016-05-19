@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="viewport" content="initial-scale=1">
+		<meta name="viewport" content="initial-scale=1,width=device-width,maximum-scale=1">
+		<meta name="charset" content="utf-8">
 		<title>{% block title %}Interesting Esoterica{% endblock title %}</title>
 		<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
@@ -16,7 +17,7 @@
 			});
 		</script>
 		<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-		<link rel="stylesheet" href="{{root}}/static/style.css"></link>
+		<link rel="stylesheet" href="{{root}}static/style.css"></link>
 	</head>
 	<body>
 		<header>
@@ -33,8 +34,9 @@
             {% if logged_in %}
                 <p>Logged in</p>
             {% else %}
-                <p><a href="{{root}}/login">Log in</a></p>
+				<p><a href="{{reverse('login')}}">Log in</a></p>
             {% endif %}
         </footer>
+		{% block scripts %}{% endblock scripts %}
 	</body>
 </html>

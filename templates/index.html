@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{num}}</h2>
+<h2>{{num}} entries</h2>
 <ul class="entries">
 	{% for entry in entries %}
 	<li style="background-color: hsl({{random(360)}},60%,93%)"><a href="{{root}}entry/{{entry.key}}">{% if entry.title %}{{entry.title|raw}}{% else %}<em>no title</em>{% endif %}</a></li>
