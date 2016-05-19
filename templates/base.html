@@ -3,7 +3,7 @@
 	<head>
 		<meta name="viewport" content="initial-scale=1,width=device-width,maximum-scale=1">
 		<meta name="charset" content="utf-8">
-		<title>{% block title %}Interesting Esoterica{% endblock title %}</title>
+		<title>{% block title %}{{settings.site_title}}{% endblock title %}</title>
 		<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
 				extensions: ["tex2jax.js"],
@@ -21,7 +21,7 @@
 	</head>
 	<body>
 		<header>
-			<h1><a href="{{root}}">Interesting Esoterica</a></h1>
+			<h1><a href="{{root}}">{{settings.site_title}}</a></h1>
 			<form id="search"  method="GET" action="{{root}}">
 				<div class="field">
 					<input class="form-control" type="text" name="q" value="{{query}}" placeholder="Search">

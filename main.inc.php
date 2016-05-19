@@ -101,6 +101,7 @@ class BibSite {
     public $db;
 
     function BibSite($config) {
+		$this->site_title = $config->site_title;
         $this->template_dir = $config->template_dir;
         $this->password = $config->password;
         $this->bibfile = $config->bibfile;
@@ -108,7 +109,8 @@ class BibSite {
         $twig_loader = new Twig_Loader_Filesystem($this->template_dir);
         $this->twig = new Twig_Environment($twig_loader,array(
         ));
-        $this->twig->addGlobal('root',$this->root_url."/");
+		$this->twig->addGlobal('settings',$this);
+        $this->twig->addGlobal('root',$this->root_url);
         $this->twig->addGlobal('logged_in',$_SESSION['logged_in']);
         $this->twig->addFunction(new Twig_SimpleFunction('reverse',"reverse"));
 
