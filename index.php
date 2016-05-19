@@ -5,6 +5,12 @@ $BIB->router->map('GET','/', function() {
 	require __DIR__ . '/views/index.php';
 },'index');
 
+$BIB->router->map('GET','/random',function() {
+	global $BIB;
+	$key = array_rand($BIB->db->records);
+	return redirect(reverse('view_entry',array('key'=>$key)));
+},'random_entry');
+
 $BIB->router->map('GET','/entry/[key:key]',function($entry_key) {
 	require __DIR__ . '/views/view_entry.php';
 },'view_entry');

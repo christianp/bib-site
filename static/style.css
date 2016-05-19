@@ -51,8 +51,8 @@ footer {
 	background: hsl(0,40%,80%);
 }
 
-#search input[name="q"] {
-	width: 100%;
+#random-entry {
+	flex: 0 0 8em;
 }
 
 ul.entries {
@@ -65,13 +65,14 @@ ul.entries {
 .entries li {
 	margin: 1em;
 	background: hsl(240,60%,93%);
-	padding: 1em;
 	display: inline-block;
 	flex-grow: 1;
     box-shadow: 0 3px 3px #ccc;
 }
 
 .entries li > a {
+	display: block;
+	padding: 1rem;
 	font-size: 1.3em;
 	text-decoration: none;
 	color: #111;

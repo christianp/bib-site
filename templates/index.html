@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{num}} entries</h2>
+<h2>{{num}} {% if num==1 %}entry{% else %}entries{% endif %}</h2>
 <ul class="entries">
 	{% for entry in entries %}
-	<li style="background-color: hsl({{random(360)}},60%,93%)"><a href="{{root}}entry/{{entry.key}}">{% if entry.title %}{{entry.title|raw}}{% else %}<em>no title</em>{% endif %}</a></li>
+	<li style="background-color: hsl({{loop.index*1.618*180}},60%,93%)"><a href="{{root}}entry/{{entry.key}}">{% if entry.title %}{{entry.title|raw}}{% else %}<em>no title</em>{% endif %}</a></li>
 	{% endfor %}
 </ul>
 <p><a href="{{root}}/export.bib">Download .bib</a></p>

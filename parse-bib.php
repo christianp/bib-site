@@ -184,6 +184,10 @@ class BibEntry {
 		$out .= "\n}";
 		return $out;
 	}
+
+	function search_string() {
+		return strtolower(implode(' ',array($this->title,$this->abstract,$this->author)));
+	}
 }
 
 class BibDatabase {

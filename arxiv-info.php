@@ -29,7 +29,7 @@ function get_arxiv_info($id) {
 
 	return array(
 		'title'=>$title,
-		'abstract'=>$abstract,
+		'abstract'=>html_entity_decode($abstract),
 		'author'=>implode(' and ',$authors),
 		'url' => implode(' ',array($main_link,$pdf)),
 		'extra_fields' => array(

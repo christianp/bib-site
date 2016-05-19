@@ -4,7 +4,7 @@ global $BIB;
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
 	$defaults = array_merge($_GET,array('type'=>'article'));
-	if(preg_match('#^https?://arxiv.org/abs/(?P<id>\d+\.\d+)#',$_GET['url'],$matches)) {
+	if(preg_match('#^https?://arxiv.org/abs/(?P<id>\d+\.\d+|\w+/\d{7})#',$_GET['url'],$matches)) {
 		$defaults = get_arxiv_info($matches['id']);
 	}
 } else {
