@@ -7,10 +7,12 @@
 	<div class="info">
 		<h1>{{entry.title}}</h1>
 		<h2 class="author">{{entry.fields['author']}}</h2>
+		{% if logged_in %}
 		<p>
 		<a class="btn danger" href="{{reverse('delete_entry',{'key':entry.key})}}">Delete</a> 
 		<a class="btn" href="{{reverse('edit_entry',{'key':entry.key})}}">Edit</a>
 		</p>
+		{% endif %}
 		{% if entry.fields['abstract'] %}
 		<blockquote class="abstract">
 			{{entry.fields['abstract']}}
