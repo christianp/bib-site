@@ -129,7 +129,7 @@ form .field .form-control.label-input {
 }
 .top .pdf {
 	flex: 1 0 30%;
-	min-height: 400px;
+	min-height: 600px;
 }
 .top .info {
 	margin-right: 3em;

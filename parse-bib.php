@@ -168,7 +168,7 @@ class BibEntry {
 
 	function pdf() {
 		foreach($this->urls as $url) {
-			if(preg_match('#(?:\.pdf$)|(?:arxiv\.org/pdf)#',$url)) {
+			if(preg_match('#(?:\.pdf(?:\?.*)?$)|(?:arxiv\.org/pdf)#',$url)) {
 				return $url;
 			}
 		}
