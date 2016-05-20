@@ -33,6 +33,25 @@ function reverse($name,$args=array()) {
 	return $BIB->router->generate($name,$args);
 }
 
+function render($template,$args=array()) {
+	global $BIB;
+	echo $BIB->twig->render($template,$args);
+}
+
+function respond_404() {
+	render('404.html');
+}
+
+function get_entry($entry_key) {
+	global $BIB;
+	$entry = $BIB->db->records[$entry_key];
+	if(!$entry) {
+		respond_404();
+		die();
+	}
+	return $entry;
+}
+
 function url_origin( $s, $use_forwarded_host = false )
 {
 	$ssl      = ( ! empty( $s['HTTPS'] ) && $s['HTTPS'] == 'on' );

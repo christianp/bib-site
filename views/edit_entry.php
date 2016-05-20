@@ -1,7 +1,7 @@
 <?php
 global $BIB;
 
-$entry = $BIB->db->records[$entry_key];
+$entry = get_entry($entry_key);
 
 $defaults = array(
     'type' => $entry->type,
@@ -49,22 +49,22 @@ $form = new Form(
     $defaults
 );
 
-function render($form) {
+function render_form($form) {
 	global $BIB;
 	echo $BIB->twig->render('edit_entry.html',array('form'=>$form));
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
-	render($form);
+	render_form($form);
 } else {
     $form->clean();
 	if($form->cleaned_data['title']==='' || $form->cleaned_data['key']==='') {
-		render($form);
+		render_form($form);
     } else {
         $newkey = $form->cleaned_data['key'];
 
         if($newkey !== $entry->key && isset($BIB->db->records[$newkey])) {
-            render($form);
+            render_form($form);
             die();
         }
 
