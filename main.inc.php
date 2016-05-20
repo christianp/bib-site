@@ -139,7 +139,7 @@ class BibSite {
         $this->router = new AltoRouter();
         $this->router->setBasePath($this->root_url);
         $this->router->addMatchTypes(array(
-            'key'=>'[^{}\s-%#/]+'
+            'key'=>'[^{}\s%#/]+'
         ));
     }
 
