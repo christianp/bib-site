@@ -1,0 +1,7 @@
+{
+	"site_title": "My Bib File",
+    "template_dir": "templates",
+    "bibfile": "bibfile.bib",
+    "root_url": "/",
+    "password": "hash your password using crypt()"
+}
