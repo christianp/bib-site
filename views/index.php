@@ -48,5 +48,6 @@ if($sort=='title') {
 echo $BIB->twig->render('index.html',array(
 	'entries'=>$entries,
 	'query' => $query,
-	'num' => count($entries)
+	'num' => count($entries),
+	'sort' => $sort
 ));

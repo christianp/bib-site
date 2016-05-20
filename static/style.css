@@ -7,14 +7,30 @@ html {
 	color: #333;
 }
 
+@media screen and (max-width: 768px) {
+	html {
+		font-size: 13px;
+	}
+	header h1 {
+		margin-top: 0;
+	}
+}
+
+
 header {
 	text-align: center;
 	margin-bottom: 3em;
 }
 
-header a {
+header h1 {
+	font-size: 4rem;
+	font-family: Rye;
+	font-weight: normal;
+}
+
+header h1 a {
 	text-decoration: none;
-	color: inherit;
+	color: hsl(60,50%,40%);
 }
 
 footer {
@@ -118,6 +134,14 @@ form .field .form-control.label-input {
 .top .info {
 	margin-right: 3em;
 	flex: 1 1 50%;
+}
+@media screen and (max-width: 768px) {
+	.top {
+		flex-wrap: wrap;
+	}
+	.top .info {
+		flex: 1 0 100%;
+	}
 }
 .top .info .abstract {
 	padding: 1rem 2rem;

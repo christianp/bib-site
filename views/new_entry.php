@@ -44,20 +44,19 @@ $form = new Form(
 	$defaults
 );
 
-function render($form) {
-	global $BIB;
-	echo $BIB->twig->render('new_entry.html',array('form'=>$form));
+function render_form($form) {
+	render('new_entry.html',array('form'=>$form));
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
 	if(!$form->data['key']) {
 		$form->data['key'] = preg_replace('/\W/','',$form->data['title']);
 	}
-	render($form);
+	render_form($form);
 } else {
     $form->clean();
 	if($form->cleaned_data['title']==='' || $form->cleaned_data['key']==='') {
-		render($form);
+		render_form($form);
 	} else {
 		$entry = new BibEntry(
 			$form->cleaned_data['type'],
