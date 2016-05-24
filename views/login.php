@@ -1,13 +1,13 @@
 <?php
 global $BIB;
 
-function render() {
+function render_page() {
 	global $BIB;
 	echo $BIB->twig->render('login.html');
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
-    render();
+    render_page();
 } else {
     $logged_in = $BIB->authenticate($_POST['password']);
     if($logged_in) {
@@ -16,6 +16,6 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
 		}
         redirect(reverse('index'));
     } else {
-        render();
+        render_page();
     }
 }
