@@ -16,6 +16,10 @@ class ComposerStaticInit34360b8a9546ef928724ce578df07c13
         ),
         'S' => 
         array (
+            'Suin\\RSSWriter' => 
+            array (
+                0 => __DIR__ . '/..' . '/suin/php-rss-writer/src',
+            ),
             'SimplePie' => 
             array (
                 0 => __DIR__ . '/..' . '/simplepie/simplepie/library',

@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Suin\\RSSWriter' => array($vendorDir . '/suin/php-rss-writer/src'),
     'SimplePie' => array($vendorDir . '/simplepie/simplepie/library'),
 );

@@ -2,6 +2,7 @@
     "require": {
         "twig/twig": "~1.0",
         "altorouter/altorouter": "=1.1.0",
-        "simplepie/simplepie": "^1.4"
+        "simplepie/simplepie": "^1.4",
+        "suin/php-rss-writer": "^1.3"
     }
 }

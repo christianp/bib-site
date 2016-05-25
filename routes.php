@@ -3,6 +3,10 @@ $BIB->router->map('GET','', function() {
 	require __DIR__ . '/views/index.php';
 },'index');
 
+$BIB->router->map('GET','rss',function() {
+    require __DIR__ . '/views/rss.php';
+},'rss');
+
 $BIB->router->map('GET','random',function() {
 	global $BIB;
 	$key = array_rand($BIB->db->records);
