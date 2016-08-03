@@ -37,12 +37,12 @@
 		<hr>
 		<pre>{{entry.as_bib}}</pre>
 	</div>
-	{% if show_pdf %}
-		{% if entry.pdf is not null %}
+	{% if entry.pdf is not null %}
+		{% if show_pdf %}
 		<iframe class="pdf" src="{{entry.pdf}}"></iframe>
-		{% endif %}
-	{% else %}
+		{% else %}
 		<p><a href="?show_pdf=true">Show PDF</a></p>
+		{% endif %}
 	{% endif %}
 </div>
 {% endblock content %}
