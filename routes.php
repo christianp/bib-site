@@ -39,8 +39,9 @@ $BIB->router->map('GET|POST','new',array(
 ),'new_entry');
 
 $BIB->router->map('GET','export.bib',function() {
+	global $BIB;
     header('Content-Type: application/x-bibtex');
-    echo $bib->as_bib();
+    echo $BIB->db->as_bib();
 },'export');
 
 $BIB->router->map('GET|POST','login',function() {
