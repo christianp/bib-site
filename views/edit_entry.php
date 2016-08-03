@@ -7,12 +7,14 @@ $defaults = array(
     'type' => $entry->type,
     'key' => $entry->key,
     'title' => $entry->title,
-    'author' => $entry->author,
+	'author' => $entry->author,
+	'abstract' => $entry->fields['abstract'],
+	'comment' => $entry->fields['comment'],
     'url' => implode(" ",$entry->urls),
     'extra_fields' => array()
 );
 foreach($entry->fields as $name=>$value) {
-    if(!in_array($name,array('title','author','url'))) {
+    if(!in_array($name,array('title','author','url','abstract','comment'))) {
         $defaults['extra_fields'][] = array('name'=>$name,'value'=>$value);
     }
 }
@@ -24,6 +26,7 @@ $form = new Form(
 			'required'=>'true',
 			'options' => array(
 				'article' => 'Article',
+				'book' => 'Book',
 				'online' => 'Web page',
 				'misc' => 'Miscellaneous'
 			)
@@ -38,6 +41,8 @@ $form = new Form(
 		'title' => array('type'=>'text','required'=>'true'),
 		'url' => array('type'=>'text'),
 		'author' => array('type'=>'text'),
+		'abstract' => array('type'=>'textarea'),
+		'comment' => array('type'=>'textarea'),
         'extra_fields' => array(
             'fields' => array(
                 'name' => array('type'=>'text'),
@@ -75,6 +80,8 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
         $entry->fields['title'] = $form->cleaned_data['title'];
         $entry->fields['author'] = $form->cleaned_data['author'];
         $entry->fields['url'] = $form->cleaned_data['url'];
+        $entry->fields['abstract'] = $form->cleaned_data['abstract'];
+        $entry->fields['comment'] = $form->cleaned_data['comment'];
         foreach($form->cleaned_data['extra_fields'] as $field) {
             $entry->fields[$field['name']] = $field['value'];
         }

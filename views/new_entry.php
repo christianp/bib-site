@@ -17,6 +17,7 @@ $form = new Form(
 			'required'=>'true',
 			'options' => array(
 				'article' => 'Article',
+				'book' => 'Book',
 				'online' => 'Web page',
 				'misc' => 'Miscellaneous'
 			)

@@ -36,14 +36,28 @@
 		</label>
 		<input type="text" name="author" class="form-control" value="{{form.data.author}}">
 	</div>
+	<div class="field">
+		<label>
+		    Abstract
+		</label>
+        <textarea name="abstract" class="form-control">{{form.data.abstract}}</textarea>
+	</div>
+	<div class="field">
+		<label>
+		    Comment
+		</label>
+        <textarea name="comment" class="form-control">{{form.data.comment}}</textarea>
+	</div>
     <h2>Extra fields</h2>
     <div id="extra-fields">
     {% for subform in form.data.extra_fields %}
+	{% if not subform.name in ["abstract","comment"] %}
     <div class="field">
         <input type="text" name="extra_fields-{{loop.index-1}}-name" class="label-input form-control" value="{{subform.name}}">
         <input type="text" name="extra_fields-{{loop.index-1}}-value" class="form-control" value="{{subform.value}}">
         <button type="button" class="btn delete-field">x</button>
-    </div>
+	</div>
+	{% endif %}
     {% endfor %}
     </div>
     <p><button class="btn" type="button" id="add-field">Add a field</button></p>
