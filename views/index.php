@@ -3,7 +3,7 @@ global $BIB;
 
 $entries = $BIB->db->records;
 
-$sort = $_GET['sort'] ? $_GET['sort'] : 'title';
+$sort = $_GET['sort'] ? $_GET['sort'] : 'date';
 
 global $words;
 $query = strtolower($_GET['q']);
