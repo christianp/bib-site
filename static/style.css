@@ -119,6 +119,10 @@ form .field .form-control {
 	padding: 0.1em 0.5em;
 	min-width: 6em;
 }
+form .field textarea.form-control {
+	font-size: 1.2rem;
+	min-height: 8rem;
+}
 form .field .form-control.label-input {
     max-width: 6em;
     text-align: right;
