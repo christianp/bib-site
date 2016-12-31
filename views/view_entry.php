@@ -14,10 +14,17 @@ $ignore_fields = array('abstract','title','url','author','urldate','month','year
 if($entry->is_arxiv()) {
     $ignore_fields = array_merge($ignore_fields,array('archivePrefix','eprint','primaryClass'));
 }
+$show_fields = array();
+foreach($entry->fields as $key=>$value) {
+    if($value && !in_array($key,$ignore_fields)) {
+        $show_fields[$key] = $value;
+    }
+}
 
 echo $BIB->twig->render('entry.html',array(
 	'entry'=>$entry,
 	'delete'=>$BIB->router->generate('delete_entry',array('key'=>$entry->key)),
     'show_pdf'=>get($_SESSION,'show_pdf',false),
-    'ignore_fields' => $ignore_fields
+    'ignore_fields' => $ignore_fields,
+    'show_fields' => $show_fields
 ));

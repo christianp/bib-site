@@ -8,8 +8,8 @@ $defaults = array(
     'key' => $entry->key,
     'title' => $entry->title,
 	'author' => $entry->author,
-	'abstract' => $entry->fields['abstract'],
-	'comment' => $entry->fields['comment'],
+	'abstract' => get($entry->fields,'abstract',''),
+	'comment' => get($entry->fields,'comment',''),
     'url' => implode(" ",$entry->urls),
     'extra_fields' => array()
 );

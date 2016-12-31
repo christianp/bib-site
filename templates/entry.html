@@ -29,16 +29,19 @@
             {% endif %}
         </section>
         <section id="metadata">
+            {% if entry.urls|length %}
             <h2>Links</h2>
             <ul class="links">
                 {%for url in entry.urls %}
                 <li class="link"><a href="{{url}}">{{url}}</a></li>
                 {% endfor %}
             </ul>
+            {% endif %}
+            {% if not show_fields is empty %}
             <h2>Other information</h2>
             <div class="fields">
                 <dl>
-                    {% for key,value in entry.fields %}
+                    {% for key,value in show_fields %}
                     {% if (not (key in ignore_fields)) and value %}
                     <dt>{{key}}</dt>
                     <dd>{{value}}</dd>
@@ -46,6 +49,7 @@
                     {% endfor %}
                 </dl>
             </div>
+            {% endif %}
         </section>
 
         <section id="bibtex">

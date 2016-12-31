@@ -85,6 +85,7 @@ footer {
 
 #search input {
     border-radius: 4px 0 0 4px;
+    background: white;
 }
 #random-entry {
 	flex: 0 0 10em;
@@ -146,7 +147,7 @@ form .field .form-control {
 	flex: 1 1 auto;
 	font-size: 2rem;
 	border: none;
-	background: white;
+	background: #eee;
 	margin-top: 0em;
 	margin-bottom: 0em;
 	padding: 0.1em 0.5em;
