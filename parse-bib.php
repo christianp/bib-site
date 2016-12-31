@@ -150,6 +150,8 @@ $latex_specials = array(
 	'#' => '#',
 	'%' => '%',
 	'l' => 'ł',
+    'AA' => 'Å',
+    'aa' => 'å'
 );
 
 class BibEntry {
@@ -269,7 +271,7 @@ function parse_record($source) {
         if(preg_match('/\A[\n\r\s]*\}[\n\r\s]*/',$source,$matches)) {
             $source = substr($source,strlen($matches[0]));
         } else {
-            print("No end of record\n");
+            throw new Exception("No end of record");
             return false;
         }
         return array(
@@ -284,13 +286,17 @@ function parse_braced($source) {
     global $latex_specials;
     $osource = substr($source,0);
     $text = "";
-    while(preg_match('/\A(?:(?P<escaped>(?P<accent>)\\\[\'"`~]\{(?P<letter>[^}]?)\})|(?P<escape_special>\{\\\(?P<special>.)(?:\{\})?\\})|(?P<text>(?:[\n\r\s]|[^\\{}])+)|(?P<brace>\{))/m',$source,$matches)) {
+    while(preg_match('/\A(?:(?P<escaped>(?P<accent>)\\\.\{(?P<letter>[^}]?)\})|(?P<escape_special>\{\\\(?P<special>.\w?)(?:\{\})?\\})|(?P<text>(?:[\n\r\s]|[^\\{}])+)|(?P<brace>\{))/m',$source,$matches)) {
         $source = substr($source,strlen($matches[0]));
         if($matches['escaped']!='') {
             $text .= $latex_accents[$matches['escaped']];
         } else if($matches['escape_special']) {
-            if(array_key_exists($matches['special'],$latex_specials)) {
-                $text .= $latex_specials[$matches['special']];
+            $special = $matches['special'];
+            if(array_key_exists($special,$latex_specials)) {
+                $text .= $latex_specials[$special];
+            } else if(array_key_exists(substr($special,0,1),$latex_specials)) {
+                $text .= $latex_specials[substr($special,0,1)];
+                $source = substr($special,1) . $source;
             } else {
                 $text .= $matches['special'];
             }
