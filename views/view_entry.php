@@ -10,9 +10,9 @@ if(get($_GET,'hide_pdf',false)) {
 	$_SESSION['show_pdf'] = false;
 }
 
-$ignore_fields = ['abstract','title','url','author','urldate','month','year'];
+$ignore_fields = array('abstract','title','url','author','urldate','month','year');
 if($entry->is_arxiv()) {
-    $ignore_fields = array_merge($ignore_fields,['archivePrefix','eprint','primaryClass']);
+    $ignore_fields = array_merge($ignore_fields,array('archivePrefix','eprint','primaryClass'));
 }
 
 echo $BIB->twig->render('entry.html',array(
