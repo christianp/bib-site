@@ -6,6 +6,9 @@ html {
 	font-size: 16px;
 	color: #333;
 }
+body {
+    margin: 0;
+}
 
 @media screen and (max-width: 768px) {
 	html {
@@ -20,23 +23,36 @@ html {
 header {
 	text-align: center;
 	margin-bottom: 3em;
+	background: hsl(40, 3%, 40%);
+	padding: 1em 1em 0.1em 1em;
+	background-image: url('ebru.jpg');
+	background-size: cover;
+	background-position: bottom;
 }
 
 header h1 {
 	font-size: 4rem;
 	font-family: Rye;
 	font-weight: normal;
+	margin-top: 0;
 }
 
 header h1 a {
 	text-decoration: none;
-	color: hsl(60,50%,40%);
+	color: hsl(300,50%,100%);
+	text-shadow: 2px 5px 1px black;
+	word-break: break-word;
+}
+
+main {
+    padding: 0 2em;
 }
 
 footer {
     margin-top: 5rem;
     font-size: 0.8rem;
     color: #555;
+    text-align: center;
 }
 
 .btn {
@@ -67,8 +83,22 @@ footer {
 	background: hsl(0,40%,80%);
 }
 
+#search input {
+    border-radius: 4px 0 0 4px;
+}
 #random-entry {
-	flex: 0 0 8em;
+	flex: 0 0 10em;
+	height: 3rem;
+	line-height: 2em;
+	margin-left: 0;
+	margin-top: 0;
+	border-radius: 0 4px 4px 0;
+}
+@media screen and (max-width: 768px) {
+    #search input, #random-entry {
+        border-radius: 0;
+        width: 100%;
+    }
 }
 
 ul.entries {
@@ -78,20 +108,23 @@ ul.entries {
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
-.entries li {
+.entries li.entry {
 	margin: 1em;
 	background: hsl(240,60%,93%);
 	display: inline-block;
 	flex-grow: 1;
-    box-shadow: 0 3px 3px #ccc;
+	box-shadow: 0 3px 3px #ccc;
+	padding: 1rem;
 }
 
 .entries li > a {
-	display: block;
-	padding: 1rem;
+	display: inline-block;
 	font-size: 1.3em;
 	text-decoration: none;
 	color: #111;
+}
+.entries li .entry-info {
+    font-size: 0.9rem;
 }
 
 form .field {
@@ -113,11 +146,13 @@ form .field .form-control {
 	flex: 1 1 auto;
 	font-size: 2rem;
 	border: none;
-	background: #eee;
-	margin-top: 0.2em;
-    margin-bottom: 0.2em;
+	background: white;
+	margin-top: 0em;
+	margin-bottom: 0em;
 	padding: 0.1em 0.5em;
 	min-width: 6em;
+	margin-right: 0;
+	height: 3rem;
 }
 form .field textarea.form-control {
 	font-size: 1.2rem;
@@ -130,6 +165,8 @@ form .field .form-control.label-input {
 
 .top {
 	display: flex;
+	margin: 0 0 0 auto;
+	max-width: 90rem;
 }
 .top .pdf {
 	flex: 1 0 30%;
@@ -138,6 +175,7 @@ form .field .form-control.label-input {
 .top .info {
 	margin-right: 3em;
 	flex: 1 1 50%;
+	max-width: 40rem;
 }
 @media screen and (max-width: 768px) {
 	.top {
@@ -145,7 +183,16 @@ form .field .form-control.label-input {
 	}
 	.top .info {
 		flex: 1 0 100%;
+		margin-right: 0;
 	}
+}
+#abstract h1 {
+    font-size: 2rem;
+}
+#abstract .author {
+    font-weight: normal;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 .top .info .abstract {
 	padding: 1rem 2rem;
@@ -154,10 +201,16 @@ form .field .form-control.label-input {
 	line-height: 1.5em;
 }
 
-.top .info pre {
+#show-pdf-link {
+    text-align: right;
+    flex: 1;
+}
+
+#bibtex pre {
 	overflow-x: auto;
 	white-space: pre-wrap;
 	word-break: break-all;
+	font-size: 0.7rem;
 }
 
 .links {
@@ -175,4 +228,41 @@ form .field .form-control.label-input {
 .link a {
 	text-decoration: none;
 	word-break: break-all;
+}
+
+.fields dt {
+    font-family: monospace;
+}
+.fields dd ~ dt {
+	margin-top: 0.5rem;
+}
+.fields dt ~ dd {
+	margin-top: 0.25rem;
+}
+.dates {
+    font-weight: normal;
+    color: #555;
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+.dates li ~ li::before {
+	content: ' \00b7 ';
+	margin: 0 0.3em;
+	font-weight: bold;
+}
+.dates li {
+	display: inline-block;
+}
+
+section#bibtex {
+	margin-top: 6rem;
+}
+#search .field {
+    justify-content: flex-end;
+}
+#introduction {
+    max-width: 50rem;
+    margin: 1rem auto 3rem auto;
+    font-size: 1.3rem;
 }

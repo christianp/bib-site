@@ -5,43 +5,60 @@
 {% block content %}
 <div class="top">
 	<div class="info">
-		<h1>{{entry.title}}</h1>
-		<h2 class="author">{{entry.fields['author']}}</h2>
-		{% if logged_in %}
-		<p>
-		<a class="btn danger" href="{{reverse('delete_entry',{'key':entry.key})}}">Delete</a> 
-		<a class="btn" href="{{reverse('edit_entry',{'key':entry.key})}}">Edit</a>
-		</p>
-		{% endif %}
-		{% if entry.fields['abstract'] %}
-		<blockquote class="abstract">
-			{{entry.fields['abstract']}}
-		</blockquote>
-		{% endif %}
+        <section id="abstract">
+            <h1>
+                {{entry.title}}
+            </h1>
+            <div class="author">by {{entry.fields['author']}}</div>
+            <ul class="dates">
+                {% if entry.date_published %}<li class="date-published">Published in {{entry.date_published|date("Y")}}</li>{% endif %}
+                {% if entry.date_added %}<li class="date-added">Added on <time datetime="{{entry.date_added|date("Y-m-d")}}">{{entry.date_added|date("Y-m-d")}}</time></li>{% endif %}
+            </ul>
 
-		<ul class="links">
-			{%for url in entry.urls %}
-			<li class="link"><a href="{{url}}">{{url}}</a></li>
-			{% endfor %}
-		</ul>
-		<div class="fields">
-			<dl>
-				{% for key,value in entry.fields %}
-				{% if (not (key in ['abstract','title','url','author'])) and value %}
-				<dt>{{key}}</dt>
-				<dd>{{value}}</dd>
-				{% endif %}
-				{% endfor %}
-			</dl>
-		</div>
-		<hr>
-		<pre>{{entry.as_bib}}</pre>
+            {% if logged_in %}
+            <p>
+                <a class="btn danger" href="{{reverse('delete_entry',{'key':entry.key})}}">Delete</a> 
+                <a class="btn" href="{{reverse('edit_entry',{'key':entry.key})}}">Edit</a>
+            </p>
+            {% endif %}
+
+            {% if entry.abstract %}
+            <blockquote class="abstract">
+                {{entry.abstract}}
+            </blockquote>
+            {% endif %}
+        </section>
+        <section id="metadata">
+            <h2>Links</h2>
+            <ul class="links">
+                {%for url in entry.urls %}
+                <li class="link"><a href="{{url}}">{{url}}</a></li>
+                {% endfor %}
+            </ul>
+            <h2>Other information</h2>
+            <div class="fields">
+                <dl>
+                    {% for key,value in entry.fields %}
+                    {% if (not (key in ignore_fields)) and value %}
+                    <dt>{{key}}</dt>
+                    <dd>{{value}}</dd>
+                    {% endif %}
+                    {% endfor %}
+                </dl>
+            </div>
+        </section>
+
+        <section id="bibtex">
+            <hr>
+            <h3>BibTeX entry</h3>
+		    <pre>{{entry.as_bib}}</pre>
+        </section>
 	</div>
 	{% if entry.pdf is not null %}
 		{% if show_pdf %}
 		<iframe class="pdf" src="{{entry.pdf}}"></iframe>
 		{% else %}
-		<p><a href="?show_pdf=true">Show PDF</a></p>
+		<p id="show-pdf-link"><a href="?show_pdf=true">Show PDF</a></p>
 		{% endif %}
 	{% endif %}
 </div>

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('vendor/autoload.php');
 
 function get_arxiv_info($id) {

@@ -20,6 +20,10 @@ if (get_magic_quotes_gpc()) {
 	unset($process);
 }
 
+function get($array,$key,$default) {
+    return array_key_exists($key,$array) ? $array[$key] : $default;
+}
+
 global $BIB;
 
 session_start();
@@ -130,7 +134,7 @@ class BibSite {
         ));
 		$this->twig->addGlobal('settings',$this);
         $this->twig->addGlobal('root',$this->root_url);
-        $this->twig->addGlobal('logged_in',$_SESSION['logged_in']);
+        $this->twig->addGlobal('logged_in',array_key_exists('logged_in',$_SESSION) ? $_SESSION['logged_in'] : false);
         $this->twig->addFunction(new Twig_SimpleFunction('reverse',"reverse"));
 
         $source = file_get_contents($this->bibfile);

@@ -3,10 +3,10 @@ global $BIB;
 
 $entries = $BIB->db->records;
 
-$sort = $_GET['sort'] ? $_GET['sort'] : 'date';
+$sort = get($_GET,'sort','date');
 
 global $words;
-$query = strtolower($_GET['q']);
+$query = strtolower(get($_GET,'q',''));
 $words = explode(" ",$query);
 if($query) {
 	$entries = array_filter($entries,function($entry) {
@@ -36,8 +36,8 @@ if($sort=='title') {
 	});
 } else if($sort=='date') {
 	usort($entries,function($a,$b) {
-		$a = strtolower($a->fields['urldate']);
-		$b = strtolower($b->fields['urldate']);
+		$a = $a->date_added;
+		$b = $b->date_added;
 		if($a==$b) {
 			return 0;
 		}

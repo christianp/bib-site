@@ -158,7 +158,18 @@ class BibEntry {
 		$this->type = $type;
 		$this->fields = $fields;
 		$this->title = isset($this->fields['title']) ? $this->fields['title'] : '';
-		$this->author = isset($this->fields['author']) ? $this->fields['author'] : '';
+        $this->author = isset($this->fields['author']) ? $this->fields['author'] : '';
+        $this->abstract = get($this->fields,'abstract','');
+        $this->date_added = isset($this->fields['urldate']) ? new DateTime($this->fields['urldate']) : null;
+        $year = get($this->fields,'year',null);
+        $month = get($this->fields,'month',null);
+        if($year) {
+            if($month) {
+                $this->date_published = new DateTime("$month $year");
+            } else {
+                $this->date_published = DateTime::createFromFormat("Y",$year);
+            }
+        }
 		if(array_key_exists('url',$this->fields) && $this->fields['url']!=='') {
 			$this->urls = explode(" ",$this->fields['url']);
 		} else {
@@ -187,7 +198,11 @@ class BibEntry {
 
 	function search_string() {
 		return strtolower(implode(' ',array($this->title,$this->abstract,$this->author)));
-	}
+    }
+
+    function is_arxiv() {
+        return get($this->fields,'archivePrefix','')=='arXiv';
+    }
 }
 
 class BibDatabase {
