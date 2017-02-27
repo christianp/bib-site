@@ -89,21 +89,5 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
         $BIB->db->records[$entry->key] = $entry;
         $BIB->save_database();
         redirect(reverse('view_entry',array('key'=>$entry->key)));
-        /*
-		$entry = new BibEntry(
-			$form->cleaned_data['type'],
-			$form->cleaned_data['key'],
-			array(
-				'title' => $form->cleaned_data['title'],
-				'url' => $form->cleaned_data['url'],
-                'author' => $form->cleaned_data['author'],
-                'comment' => $form->cleaned_data['comment'],
-				'urldate' => date('Y-m-d')
-			)
-        );
-        $BIB->db->records[$entry->key] = $entry;
-        $BIB->save_database();
-        redirect(reverse('view_entry',array('key'=>$entry->key)));
-         */
 	}
 }

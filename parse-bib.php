@@ -162,6 +162,7 @@ class BibEntry {
 		$this->title = isset($this->fields['title']) ? $this->fields['title'] : '';
         $this->author = isset($this->fields['author']) ? $this->fields['author'] : '';
         $this->abstract = get($this->fields,'abstract','');
+        $this->comment = get($this->fields,'comment','');
         $this->date_added = isset($this->fields['urldate']) ? new DateTime($this->fields['urldate']) : null;
         $year = get($this->fields,'year',null);
         $month = get($this->fields,'month',null);
@@ -199,7 +200,7 @@ class BibEntry {
 	}
 
 	function search_string() {
-		return strtolower(implode(' ',array($this->title,$this->abstract,$this->author)));
+		return strtolower(implode(' ',array($this->title,$this->abstract,$this->comment,$this->author)));
     }
 
     function is_arxiv() {
