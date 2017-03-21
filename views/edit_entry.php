@@ -11,6 +11,7 @@ $defaults = array(
 	'abstract' => get($entry->fields,'abstract',''),
 	'comment' => get($entry->fields,'comment',''),
     'url' => implode(" ",$entry->urls),
+	'urldate' => get($entry->fields,'urldate',''),
     'extra_fields' => array()
 );
 foreach($entry->fields as $name=>$value) {
@@ -40,6 +41,7 @@ $form = new Form(
         ),
 		'title' => array('type'=>'text','required'=>'true'),
 		'url' => array('type'=>'text'),
+		'urldate' => array('type'=>'text'),
 		'author' => array('type'=>'text'),
 		'abstract' => array('type'=>'textarea'),
 		'comment' => array('type'=>'textarea'),
@@ -80,6 +82,7 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
         $entry->fields['title'] = $form->cleaned_data['title'];
         $entry->fields['author'] = $form->cleaned_data['author'];
         $entry->fields['url'] = $form->cleaned_data['url'];
+        $entry->fields['urldate'] = $form->cleaned_data['urldate'];
         $entry->fields['abstract'] = $form->cleaned_data['abstract'];
         $entry->fields['comment'] = $form->cleaned_data['comment'];
         foreach($form->cleaned_data['extra_fields'] as $field) {
