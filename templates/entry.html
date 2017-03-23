@@ -14,6 +14,12 @@
                 {% if entry.date_published %}<li class="date-published">Published in {{entry.date_published|date("Y")}}</li>{% endif %}
                 {% if entry.date_added %}<li class="date-added">Added on <time datetime="{{entry.date_added|date("Y-m-d")}}">{{entry.date_added|date("Y-m-d")}}</time></li>{% endif %}
             </ul>
+			{% if not collections is empty %}
+				<div id="in-collections">
+					In the {% if collections|length == 1 %}collection{% else %}collections{% endif %}
+					<ul class="list-inline">{% for collection in collections %}{% if loop.index > 1 %}, {% endif %}<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a></li>{% endfor %}</ul>
+				</div>
+			{% endif %}
 
             {% if logged_in %}
             <p>

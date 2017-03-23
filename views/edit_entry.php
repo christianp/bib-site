@@ -1,5 +1,6 @@
 <?php
 global $BIB;
+use Cocur\Slugify\Slugify;
 
 $entry = get_entry($entry_key);
 
@@ -12,10 +13,11 @@ $defaults = array(
 	'comment' => get($entry->fields,'comment',''),
     'url' => implode(" ",$entry->urls),
 	'urldate' => get($entry->fields,'urldate',''),
-    'extra_fields' => array()
+    'extra_fields' => array(),
+	'collections' => array_map(function($c){return $c->name;},$BIB->entry_collections($entry))
 );
 foreach($entry->fields as $name=>$value) {
-    if(!in_array($name,array('title','author','url','abstract','comment'))) {
+    if(!in_array($name,array('title','author','url','abstract','comment','urldate','collections'))) {
         $defaults['extra_fields'][] = array('name'=>$name,'value'=>$value);
     }
 }
@@ -51,7 +53,11 @@ $form = new Form(
                 'value' => array('type'=>'text')
             ),
             'multi'=>true
-        )
+		),
+		'collections' => array(
+			'type' => 'checkbox',
+			'options' => array_map(function($collection){ return $collection->name;},$BIB->collections)
+		)
     ),
     $defaults
 );
@@ -87,7 +93,11 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
         $entry->fields['comment'] = $form->cleaned_data['comment'];
         foreach($form->cleaned_data['extra_fields'] as $field) {
             $entry->fields[$field['name']] = $field['value'];
-        }
+		}
+		$entry->fields['collections'] = implode(",",array_map(function($collection_name) {
+			$slugify = new Slugify();
+			return $slugify->slugify($collection_name);
+		},$form->cleaned_data['collections']));
 
         $BIB->db->records[$entry->key] = $entry;
         $BIB->save_database();

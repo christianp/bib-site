@@ -7,6 +7,17 @@ $BIB->router->map('GET','rss',function() {
     require __DIR__ . '/views/rss.php';
 },'rss');
 
+$BIB->router->map('GET','collection/[key:key]', function($slug) {
+	require __DIR__ . '/views/view_collection.php';
+},'view_collection');
+
+$BIB->router->map('GET|POST','collection/[key:key]/edit',array(
+    'view'=>function($slug) {
+        require __DIR__ . '/views/edit_collection.php';
+    },
+    'login_required' => true
+),'edit_collection');
+
 $BIB->router->map('GET','random',function() {
 	global $BIB;
 	$key = array_rand($BIB->db->records);

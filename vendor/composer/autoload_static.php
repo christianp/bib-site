@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit34360b8a9546ef928724ce578df07c13
 {
+    public static $prefixLengthsPsr4 = array (
+        'C' => 
+        array (
+            'Cocur\\Slugify\\' => 14,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
+        ),
+    );
+
     public static $prefixesPsr0 = array (
         'T' => 
         array (
@@ -34,6 +48,8 @@ class ComposerStaticInit34360b8a9546ef928724ce578df07c13
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit34360b8a9546ef928724ce578df07c13::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit34360b8a9546ef928724ce578df07c13::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit34360b8a9546ef928724ce578df07c13::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit34360b8a9546ef928724ce578df07c13::$classMap;
 

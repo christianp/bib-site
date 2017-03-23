@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{collection.name}}</h1>
+
+<h2>{{num}} {% if num==1 %}entry{% else %}entries{% endif %}</h2>
+
+{% if logged_in %}
+	<a class="btn" href="{{reverse('edit_collection',{'key':collection.slug})}}">Edit</a>
+{% endif %}
+
+<p>Sort by {% if sort=='date' %}<em>date added</em>{% else %}<a href="?sort=date">date added</a>{% endif %} | {% if sort=='title' %}<em>title</em>{% else %}<a href="?sort=title">title</a>{% endif %}</p>
+<ul class="entries">
+	{% for entry in entries %}
+	<li class="entry" style="background-color: hsl({{loop.index*1.618*180}},60%,93%)">
+        <a href="{{root}}entry/{{entry.key}}">{% if entry.title %}{{entry.title|raw}}{% else %}<em>no title</em>{% endif %}</a>
+        <div class="entry-info">
+            <ul class="dates">
+                {% if entry.date_published %}<li class="date-published">Published in {{entry.date_published|date("Y")}}</li>{% endif %}
+                {% if entry.date_added %}<li class="date-added">Added on <time datetime="{{entry.date_added|date("Y-m-d")}}">{{entry.date_added|date("Y-m-d")}}</time></li>{% endif %}
+            </ul>
+        </div>
+    </li>
+	{% endfor %}
+</ul>
+
+
+{% endblock content %}

@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
 );

@@ -9,6 +9,19 @@
 {% endif %}
 
 <h2>{{num}} {% if num==1 %}entry{% else %}entries{% endif %}</h2>
+{% if not query %}
+<h3>
+	Collections: 
+	<ul id="collections" class="list-inline">
+		{% for collection in settings.collections %}
+		<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a></li>
+		{% endfor %}
+		{% if logged_in %}
+			<li><a class="btn" href="{{reverse('edit_collection',{'key':'new'})}}">New</a></li>
+		{% endif %}
+	</ul>
+</h3>
+{% endif %}
 <p>Sort by {% if sort=='date' %}<em>date added</em>{% else %}<a href="?sort=date">date added</a>{% endif %} | {% if sort=='title' %}<em>title</em>{% else %}<a href="?sort=title">title</a>{% endif %}</p>
 <ul class="entries">
 	{% for entry in entries %}

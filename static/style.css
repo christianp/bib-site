@@ -267,3 +267,19 @@ section#bibtex {
     margin: 1rem auto 3rem auto;
     font-size: 1.3rem;
 }
+
+.list-inline {
+	padding: 0;
+	display: inline;
+	list-style: none;
+}
+.list-inline > li {
+	display: inline-block;
+}
+#collections.list-inline > li {
+	margin-left: 0.5em;
+}
+.no-bullet {
+	list-style: none;
+	padding: 0;
+}

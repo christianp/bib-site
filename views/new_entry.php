@@ -10,6 +10,8 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
 } else {
 	$defaults = array();
 }
+$defaults['collections'] = array();
+
 $form = new Form(
 	array(
 		'type' => array(
@@ -40,6 +42,10 @@ $form = new Form(
                 'value' => array('type'=>'text')
             ),
             'multi'=>true
+		),
+		'collections' => array(
+			'type' => 'checkbox',
+			'options' => array_map(function($collection){ return $collection->name;},$BIB->collections)
         )
 	),
 	$defaults
@@ -74,6 +80,10 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
         foreach($form->cleaned_data['extra_fields'] as $field) {
             $entry->fields[$field['name']] = $field['value'];
         }
+		$entry->fields['collections'] = implode(",",array_map(function($collection_name) {
+			$slugify = new Slugify();
+			return $slugify->slugify($collection_name);
+		},$form->cleaned_data['collections']));
         $BIB->db->records[$entry->key] = $entry;
         $BIB->save_database();
         redirect(reverse('view_entry',array('key'=>$entry->key)));

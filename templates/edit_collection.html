@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST">
+	<h2>Editing collection <input id="collection_name" type="text" name="collection_name" value="{{collection.name|escape('html_attr')}}"></h2>
+	<button type="submit" class="btn">Save</button>
+	<input type="hidden" name="old_collection_name" value="{{collection.name|escape('html_attr')}}">
+	<ul class="entries">
+		{% for entry in entries %}
+		<li class="entry" style="background-color: hsl({{loop.index*1.618*180}},60%,93%)">
+		<input type="checkbox" name="include_entry[]" value="{{entry.key}}" {% if entry in included %}checked{% endif %}>
+			<a href="{{root}}entry/{{entry.key}}">{% if entry.title %}{{entry.title|raw}}{% else %}<em>no title</em>{% endif %}</a>
+			<div class="entry-info">
+				<ul class="dates">
+					{% if entry.date_published %}<li class="date-published">Published in {{entry.date_published|date("Y")}}</li>{% endif %}
+					{% if entry.date_added %}<li class="date-added">Added on <time datetime="{{entry.date_added|date("Y-m-d")}}">{{entry.date_added|date("Y-m-d")}}</time></li>{% endif %}
+				</ul>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	<button type="submit" class="btn">Save</button>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+<style type="text/css">
+	#collection_name {
+		font-size: 1em;
+	}
+</style>
+{% endblock scripts %}

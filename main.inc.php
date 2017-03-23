@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 require_once 'parse-bib.php';
+use Cocur\Slugify\Slugify;
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -140,12 +141,44 @@ class BibSite {
         $source = file_get_contents($this->bibfile);
         $this->db = new BibDatabase($source);
 
+		$this->make_collections();
+
         $this->router = new AltoRouter();
         $this->router->setBasePath($this->root_url);
         $this->router->addMatchTypes(array(
             'key'=>'[^{}\s%#/]+'
         ));
     }
+
+	function make_collections() {
+		$this->collections = array();
+		foreach($this->db->records as $entry) {
+			$ecs = $this->entry_collections($entry);
+			foreach($ecs as $collection) {
+				$collection->entries[] = $entry;
+			}
+		}
+		ksort($this->collections);
+	}
+
+	function entry_collections($entry) {
+		$ecs = array_map(
+			function($c) {
+				return trim($c);
+			},
+			explode(",",get($entry->fields,'collections',''))
+		);
+		$ecs = array_filter($ecs,function($x){return $x!='';});
+		$ecs = array_map(function($collection) {
+			$slugify = new Slugify();
+			$slug = $slugify->slugify($collection);
+			if(!isset($this->collections[$slug])) {
+				$this->collections[$slug] = new Collection($collection,$slug);
+			}
+			return $this->collections[$slug];
+		},$ecs);
+		return $ecs;
+	}
 
     function authenticate($password) {
         $hash = crypt($password,'bibbo');
@@ -166,6 +199,14 @@ class BibSite {
         copy($this->bibfile,"backups/{$now}-{$this->bibfile}");
         file_put_contents($this->bibfile,$this->db->as_bib());
     }
+}
+
+class Collection {
+	function Collection($name,$slug) {
+		$this->name = $name;
+		$this->slug = $slug;
+		$this->entries = array();
+	}
 }
 
 $config = json_decode(file_get_contents("config.json"));

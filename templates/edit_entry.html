@@ -54,10 +54,20 @@
 		</label>
         <textarea name="comment" class="form-control">{{form.data.comment}}</textarea>
 	</div>
+	<div class="field">
+		<label>
+			Collections
+		</label>
+		<ul class="no-bullet">
+			{% for option in form.fields.collections.options %}
+			<li><label><input type="checkbox" name="collections[]" {% if option in form.data.collections %}checked{% endif %} value="{{option|escape('html_attr')}}"> {{option}}</label></li>
+			{% endfor %}
+		</ul>
+	</div>
     <h2>Extra fields</h2>
     <div id="extra-fields">
     {% for subform in form.data.extra_fields %}
-	{% if not subform.name in ["abstract","comment"] %}
+	{% if not (subform.name in ["abstract","comment","urldate"]) %}
     <div class="field">
         <input type="text" name="extra_fields-{{loop.index-1}}-name" class="label-input form-control" value="{{subform.name}}">
         <input type="text" name="extra_fields-{{loop.index-1}}-value" class="form-control" value="{{subform.value}}">
