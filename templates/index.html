@@ -14,7 +14,7 @@
 	Collections: 
 	<ul id="collections" class="list-inline">
 		{% for collection in settings.collections %}
-		<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a></li>
+		<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a> ({{collection.entries|length}})</li>
 		{% endfor %}
 		{% if logged_in %}
 			<li><a class="btn" href="{{reverse('edit_collection',{'key':'new'})}}">New</a></li>
