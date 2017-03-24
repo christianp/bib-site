@@ -13,6 +13,8 @@ function get_arxiv_info($id) {
 	$title = $item->get_title();
 	$abstract = $item->get_description();
 	$categories = $item->get_categories();
+	$date_format = 'Y-m-dTH:i:sP';
+	$published = getdate($item->get_date($date_format));
 	$authors_ = $item->get_authors();
 	$authors = array();
 	foreach($authors_ as $author) {
@@ -35,7 +37,8 @@ function get_arxiv_info($id) {
 		'extra_fields' => array(
 			array('name'=>'archivePrefix','value'=>'arXiv'),
 			array('name'=>'eprint','value'=>$id),
-			array('name'=>'primaryClass','value'=>$categories[0]->term)
+			array('name'=>'primaryClass','value'=>$categories[0]->term),
+			array('name'=>'year','value'=>$item->get_date('Y'))
 		)
 	);
 }
