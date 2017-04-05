@@ -1,6 +1,7 @@
 <?php
 require_once('arxiv-info.php');
 global $BIB;
+use Cocur\Slugify\Slugify;
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
 	$defaults = array_merge($_GET,array('type'=>'article'));
@@ -17,12 +18,7 @@ $form = new Form(
 		'type' => array(
 			'type' => 'select',
 			'required'=>'true',
-			'options' => array(
-				'article' => 'Article',
-				'book' => 'Book',
-				'online' => 'Web page',
-				'misc' => 'Miscellaneous'
-			)
+			'options' => $BIB->type_options
 		),
         'key' => array(
             'type'=>'text',

@@ -124,6 +124,20 @@ class BibSite {
     public $twig;
     public $db;
 
+	public $type_options = array(
+		'article' => 'Article',
+		'book' => 'Book',
+		'online' => 'Web page',
+		'artwork' => 'Artwork',
+		'audio' => 'Audio',
+		'review' => 'Review',
+		'image' => 'Image',
+		'video' => 'Video',
+		'software' => 'Software',
+		'patent' => 'Patent',
+		'misc' => 'Miscellaneous'
+	);
+
     function BibSite($config) {
 		$this->site_title = $config->site_title;
         $this->template_dir = $config->template_dir;

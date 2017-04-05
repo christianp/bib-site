@@ -27,12 +27,7 @@ $form = new Form(
 		'type' => array(
 			'type' => 'select',
 			'required'=>'true',
-			'options' => array(
-				'article' => 'Article',
-				'book' => 'Book',
-				'online' => 'Web page',
-				'misc' => 'Miscellaneous'
-			)
+			'options' => $BIB->type_options
 		),
         'key' => array(
             'type'=>'text',
