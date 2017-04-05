@@ -43,11 +43,27 @@ if($sort=='title') {
 		}
 		return $a>$b ? -1 : 1;
 	});
+} else if($sort=='published') {
+	usort($entries,function($a,$b) {
+		$a = $a->date_published;
+		$b = $b->date_published;
+		if($a==$b) {
+			return 0;
+		}
+		return $a>$b ? -1 : 1;
+	});
 }
+
+$sort_options = array(
+	array('arg'=>'date','name' => 'date added'),
+	array('arg'=>'title','name' => 'title'),
+	array('arg'=>'published','name' => 'date published')
+);
 
 echo $BIB->twig->render('index.html',array(
 	'entries'=>$entries,
 	'query' => $query,
 	'num' => count($entries),
-	'sort' => $sort
+	'sort' => $sort,
+	'sort_options' => $sort_options
 ));
