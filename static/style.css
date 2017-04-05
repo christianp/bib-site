@@ -201,6 +201,13 @@ form .field .form-control.label-input {
 	margin: 2rem 0;
 	line-height: 1.5em;
 }
+.top .info .comment {
+	font-style: italic;
+	font-size: 1.2rem;
+}
+#abstract {
+	margin-bottom: 2rem;
+}
 
 #show-pdf-link {
     text-align: right;
@@ -282,4 +289,13 @@ section#bibtex {
 .no-bullet {
 	list-style: none;
 	padding: 0;
+}
+form #collections {
+	display: flex;
+	flex-wrap: wrap;
+	flex:  1 1;
+}
+
+form #collections > li {
+	flex-basis: 13em;
 }

@@ -10,7 +10,7 @@ if(get($_GET,'hide_pdf',false)) {
 	$_SESSION['show_pdf'] = false;
 }
 
-$ignore_fields = array('abstract','title','url','author','urldate','month','year','collections');
+$ignore_fields = array('abstract','comment','title','url','author','urldate','day','month','year','collections');
 if($entry->is_arxiv()) {
     $ignore_fields = array_merge($ignore_fields,array('archivePrefix','eprint','primaryClass'));
 }

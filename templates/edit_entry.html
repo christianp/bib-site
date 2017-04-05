@@ -58,7 +58,7 @@
 		<label>
 			Collections
 		</label>
-		<ul class="no-bullet">
+		<ul class="no-bullet" id="collections">
 			{% for option in form.fields.collections.options %}
 			<li><label><input type="checkbox" name="collections[]" {% if option in form.data.collections %}checked{% endif %} value="{{option|escape('html_attr')}}"> {{option}}</label></li>
 			{% endfor %}

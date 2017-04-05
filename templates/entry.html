@@ -9,7 +9,7 @@
             <h1>
                 {{entry.title}}
             </h1>
-            <div class="author">by {{entry.fields['author']}}</div>
+			<div class="author">{% if entry.type!='misc' %}{{settings.type_options[entry.type]}} {% endif %}by {{entry.fields['author']}}</div>
             <ul class="dates">
                 {% if entry.date_published %}<li class="date-published">Published in {{entry.date_published|date("Y")}}</li>{% endif %}
                 {% if entry.date_added %}<li class="date-added">Added on <time datetime="{{entry.date_added|date("Y-m-d")}}">{{entry.date_added|date("Y-m-d")}}</time></li>{% endif %}
@@ -33,6 +33,13 @@
                 {{entry.abstract}}
             </blockquote>
             {% endif %}
+
+			{% if entry.comment %}
+			<h2>Comment</h2>
+			<blockquote class="comment">
+				{{entry.comment}}
+			</blockquote>
+			{% endif %}
         </section>
         <section id="metadata">
             {% if entry.urls|length %}
