@@ -22,7 +22,7 @@
 	</ul>
 </h3>
 {% endif %}
-<p>Sort by {% if sort=='date' %}<em>date added</em>{% else %}<a href="?sort=date">date added</a>{% endif %} | {% if sort=='title' %}<em>title</em>{% else %}<a href="?sort=title">title</a>{% endif %}</p>
+<p>Sort by {% for option in sort_options %}{% if loop.index>1 %} | {% endif %}{% if sort==option.arg %}<em>{{option.name}}</em>{% else %}<a href="?sort={{option.arg}}">{{option.name}}</a>{% endif %}{% endfor %} </p>
 <ul class="entries">
 	{% for entry in entries %}
 	<li class="entry" style="background-color: hsl({{loop.index*1.618*180}},60%,93%)">
