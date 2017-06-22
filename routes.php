@@ -21,7 +21,7 @@ $BIB->router->map('GET|POST','collection/[key:key]/edit',array(
 $BIB->router->map('GET','random',function() {
 	global $BIB;
 	$key = array_rand($BIB->db->records);
-	return redirect(reverse('view_entry',array('key'=>$key)));
+	return redirect(reverse('view_entry',array('key'=>$key)).'?'.http_build_query($_GET));
 },'random_entry');
 
 $BIB->router->map('GET','entry/[key:key]',function($entry_key) {
