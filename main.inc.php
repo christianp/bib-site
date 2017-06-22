@@ -44,6 +44,7 @@ function render($template,$args=array()) {
 }
 
 function respond_404() {
+    header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 	render('404.html');
 }
 

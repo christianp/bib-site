@@ -16,6 +16,5 @@ if( $match) {
     call_user_func_array( $view, $match['params'] ); 
 } else {
     // no route was matched
-    header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
-	echo $BIB->twig->render('404.html');
+	respond_404();
 }
