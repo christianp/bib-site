@@ -140,6 +140,8 @@ class BibSite {
 	);
 
     function BibSite($config) {
+		$this->config = $config;
+		$this->site_host = $config->site_host;
 		$this->site_title = $config->site_title;
         $this->template_dir = $config->template_dir;
         $this->password = $config->password;

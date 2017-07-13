@@ -23,7 +23,8 @@ $now = new \DateTime('NOW');
 $channel
   ->title($BIB->site_title)
   ->description($BIB->settings->site_description)
-  ->url($BIB->site_host)
+  ->url($BIB->site_host . $BIB->root_url)
+  ->feed_url($BIB->site_host . reverse('rss'))
   ->language($site->settings->language)
   ->lastBuildDate($now->getTimestamp())
   ->appendTo($feed);
@@ -32,8 +33,8 @@ foreach($entries as $key=>$entry) {
     $item = new Item();
     $item
       ->title($entry->title)
-      ->guid($key)
-      ->pubDate($entry->fields['urldate'])
+      ->guid($entry->key)
+      ->pubDate($entry->date_added->getTimestamp())
       ->author($entry->author)
       ->url($BIB->site_host . reverse('view_entry',array('key'=>$key)))
     ;
@@ -43,4 +44,5 @@ foreach($entries as $key=>$entry) {
     $item->appendTo($channel);
 }
 
+header('Content-type: application/rss+xml');
 echo $feed;

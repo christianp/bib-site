@@ -128,7 +128,7 @@ class Item implements ItemInterface
         }
 
         if (!empty($this->author)) {
-            $xml->addChild('author', $this->author);
+            $xml->addChild('dc:creator', $this->author,"http://purl.org/dc/elements/1.1/");
         }
 
         return $xml;
