@@ -299,3 +299,7 @@ form #collections {
 form #collections > li {
 	flex-basis: 13em;
 }
+
+.list-inline.comma-separated li ~ li::before {
+	content: ', ';
+}

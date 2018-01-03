@@ -17,7 +17,7 @@
 			{% if not collections is empty %}
 				<div id="in-collections">
 					In the {% if collections|length == 1 %}collection{% else %}collections{% endif %}
-					<ul class="list-inline">{% for collection in collections %}{% if loop.index > 1 %}, {% endif %}<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a></li>{% endfor %}</ul>
+					<ul class="list-inline comma-separated">{% for collection in collections %}<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a></li>{% endfor %}</ul>
 				</div>
 			{% endif %}
 
