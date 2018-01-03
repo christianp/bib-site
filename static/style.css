@@ -141,7 +141,7 @@ form .field label {
 	text-align: right;
 	line-height: 3rem;
 	font-weight: bold;
-	flex: 0 1 6rem;
+	flex: 0 1 8rem;
 }
 form .field .form-control {
 	flex: 1 1 auto;

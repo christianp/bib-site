@@ -29,6 +29,7 @@ $form = new Form(
         ),
 		'title' => array('type'=>'text','required'=>'true'),
 		'url' => array('type'=>'text'),
+		'year' => array('type'=>'text'),
 		'author' => array('type'=>'text'),
 		'abstract' => array('type'=>'textarea'),
 		'comment' => array('type'=>'textarea'),
@@ -68,6 +69,7 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
 				'title' => $form->cleaned_data['title'],
 				'abstract' => $form->cleaned_data['abstract'],
 				'url' => $form->cleaned_data['url'],
+				'year' => $form->cleaned_data['year'],
                 'author' => $form->cleaned_data['author'],
                 'comment' => $form->cleaned_data['comment'],
 				'urldate' => date('Y-m-d')

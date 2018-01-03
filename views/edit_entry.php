@@ -13,11 +13,12 @@ $defaults = array(
 	'comment' => get($entry->fields,'comment',''),
     'url' => implode(" ",$entry->urls),
 	'urldate' => get($entry->fields,'urldate',''),
+	'year' => get($entry->fields,'year',''),
     'extra_fields' => array(),
 	'collections' => array_map(function($c){return $c->name;},$BIB->entry_collections($entry))
 );
 foreach($entry->fields as $name=>$value) {
-    if(!in_array($name,array('title','author','url','abstract','comment','urldate','collections'))) {
+    if(!in_array($name,array('title','author','url','abstract','comment','urldate','collections','year'))) {
         $defaults['extra_fields'][] = array('name'=>$name,'value'=>$value);
     }
 }
@@ -39,6 +40,7 @@ $form = new Form(
 		'title' => array('type'=>'text','required'=>'true'),
 		'url' => array('type'=>'text'),
 		'urldate' => array('type'=>'text'),
+		'year' => array('type'=>'text'),
 		'author' => array('type'=>'text'),
 		'abstract' => array('type'=>'textarea'),
 		'comment' => array('type'=>'textarea'),
@@ -84,6 +86,7 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
         $entry->fields['author'] = $form->cleaned_data['author'];
         $entry->fields['url'] = $form->cleaned_data['url'];
         $entry->fields['urldate'] = $form->cleaned_data['urldate'];
+        $entry->fields['year'] = $form->cleaned_data['year'];
         $entry->fields['abstract'] = $form->cleaned_data['abstract'];
         $entry->fields['comment'] = $form->cleaned_data['comment'];
         foreach($form->cleaned_data['extra_fields'] as $field) {
