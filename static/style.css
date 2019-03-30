@@ -297,9 +297,22 @@ form #collections {
 }
 
 form #collections > li {
-	flex-basis: 13em;
+	flex-basis: 20em;
 }
 
 .list-inline.comma-separated li ~ li::before {
 	content: ', ';
+}
+
+.edit-collection .entries li.entry {
+	flex-basis: 100%;
+	display: flex;
+	align-items: baseline;
+}
+.edit-collection .entries li.entry > a {
+	flex-shrink: 1;
+}
+.edit-collection .entries li.entry > .entry-info {
+	flex-grow: 1;
+	text-align: right;
 }

@@ -14,11 +14,21 @@ usort($entries,function($a,$b) {
 });
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
-	$collection_name = trim(get($_GET,'collection',$slug));
+	$collection_name = trim(get($_GET,'collection',$slug=='new' ? '' : $slug));
 
 	$collection = get($BIB->collections,$slug,new Collection($collection_name,$slug));
 	$included = $collection->entries;
-	$not_included = array_filter($entries,function($entry) use ($collection){ return !in_array($entry,$collection->entries);});
+	$add_entries = get($_GET,'entries','');
+	if($add_entries!=='') {
+		$add_entries = explode(",",get($_GET,'entries',''));
+		foreach($add_entries as $key) {
+			$entry = get_entry($key);
+			if(!in_array($entry,$included)) {
+				$included[] = $entry;
+			}
+		}
+	}
+	$not_included = array_filter($entries,function($entry) use ($included){ return !in_array($entry,$included);});
 	$entries = array_merge($included,$not_included);
 
 	render('edit_collection.html',array(

@@ -199,6 +199,37 @@ class BibEntry {
 		return $out;
 	}
 
+	function as_json() {
+		$builtins = array(
+			"key",
+			"type",
+			"title",
+			"author",
+			"abstract",
+			"comment",
+			"date_added",
+			"date_published",
+			"urls",
+			"collections"
+		);
+		$out = array();
+		foreach($builtins as $key) {
+			$out[$key] = $this->$key;
+		}
+		$out['date_added'] = $this->date_added->format('Y-m-d');
+		if($this->date_published) {
+			$out['date_published'] = $this->date_published->format('Y-m-d');
+		}
+
+		$out['collections'] = explode(",",get($this->fields,'collections',''));
+		foreach($this->fields as $name => $value) {
+			if(!in_array($name,$builtins)) {
+				$out[$name] = $value;
+			}
+		}
+		return $out;
+	}
+
 	function search_string() {
 		return strtolower(implode(' ',array($this->title,$this->abstract,$this->comment,$this->author)));
     }
@@ -230,6 +261,15 @@ class BibDatabase {
         }
         return implode("\n",$o);
     }
+
+	function as_json() {
+		$o = array();
+		foreach($this->records as $key => $entry) {
+			$ro = $entry->as_json();
+			$o[] = $ro;
+		}
+		return $o;
+	}
 
     function delete_record($record) {
         unset($this->records[$record->key]);

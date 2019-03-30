@@ -4,6 +4,14 @@ global $BIB;
 $entries = $BIB->db->records;
 
 $sort = get($_GET,'sort','date');
+$uncategorised_only = isset($_GET['uncategorised']);
+
+if($uncategorised_only) {
+	$entries = array_filter($entries,function($entry) {
+		global $BIB;
+		return count($BIB->entry_collections($entry))==0;
+	});
+}
 
 global $words;
 $query = strtolower(get($_GET,'q',''));

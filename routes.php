@@ -55,6 +55,11 @@ $BIB->router->map('GET','export.bib',function() {
     echo $BIB->db->as_bib();
 },'export');
 
+$BIB->router->map('GET','export.json',function() {
+	global $BIB;
+    echo json_encode($BIB->db->as_json());
+},'export_json');
+
 $BIB->router->map('GET|POST','login',function() {
 	require __DIR__ . '/views/login.php';
 },'login');

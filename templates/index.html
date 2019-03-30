@@ -6,6 +6,12 @@
 <div id="introduction">
     {% include "introduction.html" %}
 </div>
+{% else %}
+	{% if logged_in %}
+	<p>
+	<a class="btn" href="{{reverse('edit_collection',{'key':query})}}?entries={% for entry in entries %}{% if loop.index>1 %},{% endif %}{{entry.key}}{% endfor %}">Create a collection from these entries</a>
+	</p>
+	{% endif %}
 {% endif %}
 
 <h2>{{num}} {% if num==1 %}entry{% else %}entries{% endif %}</h2>
@@ -25,7 +31,7 @@
 <p>Sort by {% for option in sort_options %}{% if loop.index>1 %} | {% endif %}{% if sort==option.arg %}<em>{{option.name}}</em>{% else %}<a href="?sort={{option.arg}}">{{option.name}}</a>{% endif %}{% endfor %} </p>
 <ul class="entries">
 	{% for entry in entries %}
-	<li class="entry" style="background-color: hsl({{loop.index*1.618*180}},60%,93%)">
+	<li class="entry" style="background-color: hsl({{loop.index*1.618*180}},60%,93%)" title="{{entry.abstract|e('html_attr')}}">
         <a href="{{root}}entry/{{entry.key}}">{% if entry.title %}{{entry.title|raw}}{% else %}<em>no title</em>{% endif %}</a>
         <div class="entry-info">
             <ul class="dates">
@@ -36,5 +42,5 @@
     </li>
 	{% endfor %}
 </ul>
-<p><a href="{{reverse('export')}}">Download .bib</a> | <a href="{{reverse('rss')}}">RSS</a></p>
+<p>Download <a href="{{reverse('export')}}">.bib</a>, <a href="{{reverse('export_json')}}">.json</a> | <a href="{{reverse('rss')}}">RSS</a></p>
 {% endblock content %}
