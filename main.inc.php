@@ -76,7 +76,7 @@ function request_url( $s, $use_forwarded_host = false )
 }
 
 class Form {
-	function Form($fields,$defaults=array()) {
+	function __construct($fields,$defaults=array()) {
 		$this->fields = $fields;
 		$this->data = $defaults;
 		foreach($this->fields as $field=>$options) {
@@ -139,7 +139,7 @@ class BibSite {
 		'misc' => 'Miscellaneous'
 	);
 
-    function BibSite($config) {
+    function __construct($config) {
 		$this->config = $config;
 		$this->site_host = $config->site_host;
 		$this->site_title = $config->site_title;
@@ -219,7 +219,7 @@ class BibSite {
 }
 
 class Collection {
-	function Collection($name,$slug) {
+	function __construct($name,$slug) {
 		$this->name = $name;
 		$this->slug = $slug;
 		$this->entries = array();

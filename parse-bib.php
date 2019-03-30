@@ -155,7 +155,7 @@ $latex_specials = array(
 );
 
 class BibEntry {
-	function BibEntry($type,$key,$fields) {
+	function __construct($type,$key,$fields) {
 		$this->key = $key;
 		$this->type = $type;
 		$this->fields = $fields;
@@ -166,6 +166,7 @@ class BibEntry {
         $this->date_added = isset($this->fields['urldate']) ? new DateTime($this->fields['urldate']) : null;
         $year = get($this->fields,'year',null);
         $month = get($this->fields,'month',null);
+        $this->date_published = null;
         if($year) {
             if($month) {
                 $this->date_published = new DateTime("$month $year");
@@ -213,8 +214,10 @@ class BibEntry {
 			"collections"
 		);
 		$out = array();
-		foreach($builtins as $key) {
-			$out[$key] = $this->$key;
+        foreach($builtins as $key) {
+            if(property_exists($this,$key)) {
+    			$out[$key] = $this->$key;
+            }
 		}
 		$out['date_added'] = $this->date_added->format('Y-m-d');
 		if($this->date_published) {
@@ -240,7 +243,7 @@ class BibEntry {
 }
 
 class BibDatabase {
-    function BibDatabase($source) {
+    function __construct($source) {
         $records = array();
         $acc = 0;
         while($res=parse_record($source)) {
@@ -327,7 +330,7 @@ function parse_braced($source) {
     global $latex_specials;
     $osource = substr($source,0);
     $text = "";
-    while(preg_match('/\A(?:(?P<escaped>(?P<accent>)\\\.\{(?P<letter>[^}]?)\})|(?P<escape_special>\{\\\(?P<special>.\w?)(?:\{\})?\\})|(?P<text>(?:[\n\r\s]|[^\\{}])+)|(?P<brace>\{))/m',$source,$matches)) {
+    while(preg_match('/\A(?:(?P<escaped>(?P<accent>)\\\.\{(?P<letter>[^}]?)\})|(?P<escape_special>\{\\\(?P<special>.\w?)(?:\{\})?\\})|(?P<text>[^\\{}]+)|(?P<brace>\{))/m',$source,$matches)) {
         $source = substr($source,strlen($matches[0]));
         if($matches['escaped']!='') {
             $text .= $latex_accents[$matches['escaped']];
