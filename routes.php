@@ -28,12 +28,26 @@ $BIB->router->map('GET','entry/[key:key]',function($entry_key) {
 	require __DIR__ . '/views/view_entry.php';
 },'view_entry');
 
+$BIB->router->map('GET|POST','bulk-comments',array(
+	'view'=>function() {
+		require __DIR__ . '/views/bulk_comments.php';
+	},
+	'login_required' => true
+), 'bulk_comments');
+
 $BIB->router->map('GET|POST','entry/[key:key]/edit',array(
     'view'=>function($entry_key) {
         require __DIR__ . '/views/edit_entry.php';
     },
     'login_required' => true
 ),'edit_entry');
+
+$BIB->router->map('GET|POST','entry/[key:key]/edit-tags',array(
+    'view'=>function($entry_key) {
+        require __DIR__ . '/views/edit_entry_tags.php';
+    },
+    'login_required' => true
+),'edit_entry_tags');
 
 $BIB->router->map('GET|POST','entry/[key:key]/delete',array(
     'view'=>function($entry_key) {

@@ -36,22 +36,6 @@ case 'html':
 	));
 	break;
 case 'json':
-	$collections_data = array();
-	foreach($collections as $collection) {
-		$collections_data[] = $collection->name;
-	}
-	$data = array(
-		'title' => $entry->title,
-		'pdf' => $entry->pdf(),
-		'key' => $entry->key,
-		'type' => $entry->type,
-		'nicetype' => $BIB->type_options[$entry->type],
-		'collections' => $collections_data,
-		'author' => $entry->fields['author'],
-		'abstract' => $entry->abstract,
-		'url' => $entry->urls[0],
-		'urls' => $entry->urls,
-		'view' => url_origin($_SERVER).reverse('view_entry',array('key'=>$entry->key))
-	);
-	echo json_encode($data);
+	header('Content-Type: application/json');
+	echo json_encode($BIB->entry_json($entry));
 }

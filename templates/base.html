@@ -20,8 +20,10 @@
 		<link rel="stylesheet" href="{{root}}static/style.css"></link>
 		<link href='https://fonts.googleapis.com/css?family=Rye|Crimson+Text' rel='stylesheet' type='text/css'>
         <link rel="alternate" type="application/rss+xml" title="RSS" href="{{reverse('rss')}}" title="Interesting Esoterica">
+		{% block stylesheets %}{% endblock stylesheets %}
 	</head>
 	<body>
+		{% block body %}
 		<header>
 			<h1><a href="{{root}}">{{settings.site_title}}</a></h1>
 			<form id="search"  method="GET" action="{{root}}">
@@ -43,6 +45,7 @@
             {% endif %}
 			<p>Powered by <a href="http://github.com/christianp/bib-site">bib-site</a>, created by clp.</p>
         </footer>
+		{% endblock body %}
 		{% block scripts %}{% endblock scripts %}
 	</body>
 </html>

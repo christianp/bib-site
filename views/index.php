@@ -68,10 +68,24 @@ $sort_options = array(
 	array('arg'=>'published','name' => 'date published')
 );
 
-echo $BIB->twig->render('index.html',array(
-	'entries'=>$entries,
-	'query' => $query,
-	'num' => count($entries),
-	'sort' => $sort,
-	'sort_options' => $sort_options
-));
+if(array_key_exists('limit',$_GET)) {
+	$limit = intval($_GET['limit']);
+	$entries = array_slice($entries, 0, $limit);
+}
+
+if($_SERVER['HTTP_ACCEPT'] == 'application/json') {
+	header('Content-Type: application/json');
+	$d = array();
+	foreach($entries as $entry) {
+		$d[] = $BIB->entry_json($entry);
+	}
+	echo json_encode($d);
+} else {
+	echo $BIB->twig->render('index.html',array(
+		'entries'=>$entries,
+		'query' => $query,
+		'num' => count($entries),
+		'sort' => $sort,
+		'sort_options' => $sort_options
+	));
+}

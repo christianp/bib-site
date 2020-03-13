@@ -215,7 +215,24 @@ class BibSite {
         $now = date('Y-m-d-H-i-s');
         copy($this->bibfile,"backups/{$now}-{$this->bibfile}");
         file_put_contents($this->bibfile,$this->db->as_bib());
-    }
+ 	}
+
+	function entry_json($entry) {
+		$collections = $this->entry_collections($entry);
+		$collections_data = array();
+		foreach($collections as $collection) {
+			$collections_data[] = $collection->name;
+		}
+		$data = $entry->as_json();
+		$data = array_merge($data,[
+			'pdf' => $entry->pdf(),
+			'nicetype' => $this->type_options[$entry->type],
+			'collections' => $collections_data,
+			'url' => $entry->urls[0],
+			'view' => url_origin($_SERVER).reverse('view_entry',array('key'=>$entry->key))
+		]);
+		return $data;
+	}
 }
 
 class Collection {

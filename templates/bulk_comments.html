@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div id="split">
+    <form id="form" method="POST" action="" class="bulk-comments">
+        <table>
+            {% for entry in entries %}
+            <tr>
+                <td class="name">
+                    <a href="{{root}}entry/{{entry.key}}" target="bib-entry">{{entry.title}}</a>
+                    {% if entry.pdf is not null %}
+                    (<a href="{{entry.pdf}}" class="source">PDF</a>)
+                    {% else %}
+                    (<a href="{{entry.url}}" class="source">URL</a>)
+                    {% endif %}
+                </td>
+                <td class="comment"><textarea type="text" name="{{entry.key}}">{{entry.comment}}</textarea></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+
+    <iframe id="preview"></iframe>
+</div>
+{% endblock body %}
+
+{% block scripts %}
+<script defer type="text/javascript" src="{{root}}static/bulk_comments.js"></script>
+{% endblock scripts %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{root}}static/bulk_comments.css"></script>
+{% endblock stylesheets %}

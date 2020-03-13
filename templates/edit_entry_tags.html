@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="" class="edit-tags">
+	<h1>{{entry.title}}</h1>
+	<blockquote class="abstract">
+		{{entry.abstract}}
+	</blockquote>
+	<ul class="words">
+		{% for word in words %}
+		<li class="word">
+			<input id="word-{{word}}" type="checkbox" name="word-{{word}}">
+			<label for="word-{{word}}">{{word}}</label>
+		</li>
+		{% endfor %}
+	</ul>
+	<p>
+		<label for="other-tags">Other tags:</label>
+		<input name="other-tags" type="text">
+	</p>
+	<p>{{entry.title}}</p>
+    <p><button class="btn big" type="submit">Submit</button></p>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{root}}static/edit_tags.js"></script>
+{% endblock scripts %}
