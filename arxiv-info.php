@@ -1,6 +1,7 @@
 <?php
 require_once('vendor/autoload.php');
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 function get_arxiv_info($id) {
 	$url = 'http://export.arxiv.org/api/query?id_list='.$id.'&start=0&max_results=1';
@@ -15,7 +16,6 @@ function get_arxiv_info($id) {
 	$abstract = $item->get_description();
 	$categories = $item->get_categories();
 	$date_format = 'Y-m-dTH:i:sP';
-	$published = getdate($item->get_date($date_format));
 	$authors_ = $item->get_authors();
 	$authors = array();
 	foreach($authors_ as $author) {
@@ -45,20 +45,27 @@ function get_arxiv_info($id) {
 }
 
 function get_citation_info($url) {
+	$info = array_merge($_GET,array('type'=>'article', 'url' => $url));
+
     $client = new Client([]);
-    
-    $res = $client->request('GET',$url);
+
+    try {
+        $res = $client->request('GET',$url);
+    } catch(RequestException $e) {
+        return $info;
+    }
 
     $html = $res->getBody();
 
+    libxml_use_internal_errors(true);
     $doc = new DOMDocument();
     $doc->loadHTML($html);
+    libxml_clear_errors();
 
     $xpath = new DOMXpath($doc);
     $metas = $xpath->query("/html/head/meta");
 
     $extra_fields = array();
-    $info = ["url" => $url];
     $authors = array();
 
     $standard_fields = ["title","url","year","abstract"];

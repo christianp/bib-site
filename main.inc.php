@@ -82,7 +82,7 @@ class Form {
 		foreach($this->fields as $field=>$options) {
             if(isset($options['multi'])) {
                 if($_SERVER['REQUEST_METHOD']=='GET') {
-                    $values = $defaults[$field];
+                    $values = get($defaults,$field,array());
                 } else {
                     $values = array();
                     foreach($_POST as $name=>$value) {
