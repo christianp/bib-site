@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}{{collection.name}} - {{ parent() }}{% endblock title %}
+
 {% block content %}
 
 <h1>{{collection.name}}</h1>
