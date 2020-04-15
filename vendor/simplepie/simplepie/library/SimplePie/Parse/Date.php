@@ -689,6 +689,7 @@ class SimplePie_Parse_Date
 				$timezone = 0;
 			}
 
+            $match[7] = $match[7]=='' ? 0 : $match[7];
 			// Convert the number of seconds to an integer, taking decimals into account
 			$second = round($match[6] + $match[7] / pow(10, strlen($match[7])));
 

@@ -55,8 +55,8 @@ function render_form($form) {
 }
 
 if($_SERVER['REQUEST_METHOD']=='GET') {
-	if(!$form->data['key']) {
-		$form->data['key'] = preg_replace('/\W/','',$form->data['title']);
+	if(!get($form->data,'key','')) {
+		$form->data['key'] = preg_replace('/\W/','',get($form->data,'title',''));
 	}
 	render_form($form);
 } else {
