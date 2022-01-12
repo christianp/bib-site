@@ -13,6 +13,11 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
 } else {
 	$defaults = array();
 }
+foreach($defaults as $k=>$v) {
+    if(is_string($v)) {
+        $defaults[$k] = html_entity_decode($v);
+    }
+}
 $defaults['collections'] = array();
 
 $form = new Form(
