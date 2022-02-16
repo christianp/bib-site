@@ -20,7 +20,10 @@ if($query) {
 	$entries = array_filter($entries,function($entry) {
 		global $words;
 		$title = $entry->search_string();
-		foreach($words as $word) {
+        foreach($words as $word) {
+            if(trim($word)=='') {
+                continue;
+            }
 			if (strpos($title,$word)===false) {
 				return false;
 			}
