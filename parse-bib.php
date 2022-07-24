@@ -179,7 +179,13 @@ class BibEntry {
 		} else {
 			$this->urls = array();
 		}
-	}
+    }
+
+    static function from_json($json) {
+        $type = $json['type'];
+        $key = $json['key'];
+        return new BibEntry($type, $key, $json);
+    }
 
 	function pdf() {
 		foreach($this->urls as $url) {
@@ -243,7 +249,11 @@ class BibEntry {
 }
 
 class BibDatabase {
-    function __construct($source) {
+    function __construct($records) {
+        $this->records = $records;
+    }
+
+    static function from_bib($source) {
         $records = array();
         $acc = 0;
         while($res=parse_record($source)) {
@@ -254,7 +264,16 @@ class BibDatabase {
             }
             $records[$record->key] = $record;
         }
-        $this->records = $records;
+        return new BibDatabase($records);
+    }
+
+    static function from_json($json) {
+        $o = array();
+        foreach($json as $record_json){ 
+            $entry = BibEntry::from_json($record_json);
+            $o[$entry->key] = $entry;
+        }
+        return new BibDatabase($o);
     }
 
     function as_bib() {
@@ -368,6 +387,9 @@ function parse_braced($source) {
 function bib_string($str) {
 	global $latex_accents;
 	global $latex_specials;
+    if(is_array($str)) {
+        $str = implode(',',$str);
+    }
     if(preg_match('/^\d+$/',$str)) {
         return $str;
     }

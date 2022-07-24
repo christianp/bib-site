@@ -163,8 +163,7 @@ class BibSite {
         $this->twig->addFunction(new Twig_SimpleFunction('reverse',"reverse"));
         $this->twig->addFunction(new Twig_SimpleFunction('ensure_https',"ensure_https"));
 
-        $source = file_get_contents($this->bibfile);
-        $this->db = new BibDatabase($source);
+        $this->load_database();
 
         $this->make_collections();
 
@@ -173,6 +172,22 @@ class BibSite {
         $this->router->addMatchTypes(array(
             'key'=>'[^{}\s%#/]+'
         ));
+    }
+
+    function load_database() {
+        $bibjson = $this->bibfile . '.json';
+        if(is_file($bibjson) && is_readable($bibjson)) {
+            $mbib = filemtime($this->bibfile);
+            $mjson = filemtime($bibjson);
+            if($mjson > $mbib) {
+                $json = json_decode(file_get_contents($bibjson), TRUE);
+                $this->db = BibDatabase::from_json($json);
+                return;
+            }
+        }
+        $source = file_get_contents($this->bibfile);
+        $this->db = BibDatabase::from_bib($source);
+        file_put_contents($bibjson, json_encode($this->db->as_json()));
     }
 
     function make_collections() {
@@ -187,12 +202,17 @@ class BibSite {
     }
 
     function entry_collections($entry) {
-        $ecs = array_map(
-            function($c) {
-                return trim($c);
-            },
-            explode(",",get($entry->fields,'collections',''))
-        );
+        $collections = get($entry->fields,'collections','');
+        if(is_array($collections)) {
+            $ecs = $collections;
+        } else {
+            $ecs = array_map(
+                function($c) {
+                    return trim($c);
+                },
+                explode(",",get($entry->fields,'collections',''))
+            );
+        }
         $ecs = array_filter($ecs,function($x){return $x!='';});
         $ecs = array_map(function($collection) {
             $slugify = new Slugify();
