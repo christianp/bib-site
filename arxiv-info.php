@@ -4,7 +4,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 function get_arxiv_info($id) {
-	$url = 'http://export.arxiv.org/api/query?id_list='.$id.'&start=0&max_results=1';
+	$url = 'https://export.arxiv.org/api/query?id_list='.$id.'&start=0&max_results=1';
 
 	$feed = new SimplePie();
 	$feed->set_feed_url($url);

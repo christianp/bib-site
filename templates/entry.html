@@ -73,7 +73,7 @@
 	</div>
 	{% if entry.pdf is not null %}
 		{% if show_pdf %}
-		<iframe class="pdf" src="{{entry.pdf}}"></iframe>
+		<iframe class="pdf" src="{{ensure_https(entry.pdf)}}"></iframe>
 		{% else %}
 		<p id="show-pdf-link"><a href="?show_pdf=true">Show PDF</a></p>
 		{% endif %}

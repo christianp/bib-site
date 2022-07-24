@@ -38,6 +38,10 @@ function reverse($name,$args=array()) {
     return $BIB->router->generate($name,$args);
 }
 
+function ensure_https($url) {
+    return preg_replace('/^http:/i','https:',$url);
+}
+
 function render($template,$args=array()) {
     global $BIB;
     echo $BIB->twig->render($template,$args);
@@ -157,6 +161,7 @@ class BibSite {
         $this->twig->addGlobal('root',$this->root_url);
         $this->twig->addGlobal('logged_in',array_key_exists('logged_in',$_SESSION) ? $_SESSION['logged_in'] : false);
         $this->twig->addFunction(new Twig_SimpleFunction('reverse',"reverse"));
+        $this->twig->addFunction(new Twig_SimpleFunction('ensure_https',"ensure_https"));
 
         $source = file_get_contents($this->bibfile);
         $this->db = new BibDatabase($source);
