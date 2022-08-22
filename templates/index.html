@@ -9,7 +9,7 @@
 {% else %}
 	{% if logged_in %}
 	<p>
-	<a class="btn" href="{{reverse('edit_collection',{'key':query})}}?entries={% for entry in entries %}{% if loop.index>1 %},{% endif %}{{entry.key}}{% endfor %}">Create a collection from these entries</a>
+	<a class="btn" href="{{reverse('edit_collection',{'slug':query})}}?entries={% for entry in entries %}{% if loop.index>1 %},{% endif %}{{entry.key}}{% endfor %}">Create a collection from these entries</a>
 	</p>
 	{% endif %}
 {% endif %}
@@ -20,10 +20,10 @@
 	Collections: 
 	<ul id="collections" class="list-inline">
 		{% for collection in settings.collections %}
-		<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a> ({{collection.entries|length}})</li>
+		<li><a href="{{reverse('view_collection',{'slug':collection.slug})}}">{{collection.name}}</a> ({{collection.entries|length}})</li>
 		{% endfor %}
 		{% if logged_in %}
-			<li><a class="btn" href="{{reverse('edit_collection',{'key':'new'})}}">New</a></li>
+			<li><a class="btn" href="{{reverse('edit_collection',{'slug':'new'})}}">New</a></li>
 		{% endif %}
 	</ul>
 </h3>

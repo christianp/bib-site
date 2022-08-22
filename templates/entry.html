@@ -17,14 +17,14 @@
 			{% if not collections is empty %}
 				<div id="in-collections">
 					In the {% if collections|length == 1 %}collection{% else %}collections{% endif %}
-					<ul class="list-inline comma-separated">{% for collection in collections %}<li><a href="{{reverse('view_collection',{'key':collection.slug})}}">{{collection.name}}</a></li>{% endfor %}</ul>
+					<ul class="list-inline comma-separated">{% for collection in collections %}<li><a href="{{reverse('view_collection',{'slug':collection.slug})}}">{{collection.name}}</a></li>{% endfor %}</ul>
 				</div>
 			{% endif %}
 
             {% if logged_in %}
             <p>
-                <a class="btn danger" href="{{reverse('delete_entry',{'key':entry.key})}}">Delete</a> 
-                <a class="btn" href="{{reverse('edit_entry',{'key':entry.key})}}">Edit</a>
+                <a class="btn danger" href="{{reverse('delete_entry',{'entry_key':entry.key})}}">Delete</a> 
+                <a class="btn" href="{{reverse('edit_entry',{'entry_key':entry.key})}}">Edit</a>
             </p>
             {% endif %}
 

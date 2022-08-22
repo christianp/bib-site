@@ -18,7 +18,7 @@ $defaults = array(
 	'collections' => array_map(function($c){return $c->name;},$BIB->entry_collections($entry))
 );
 foreach($entry->fields as $name=>$value) {
-    if(!in_array($name,array('title','author','url','abstract','comment','urldate','collections','year'))) {
+    if(!in_array($name,array('title','author','url','urls','abstract','comment','urldate','collections','year'))) {
         $defaults['extra_fields'][] = array('name'=>$name,'value'=>$value);
     }
 }

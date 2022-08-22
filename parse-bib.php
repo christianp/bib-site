@@ -230,7 +230,7 @@ class BibEntry {
 			$out['date_published'] = $this->date_published->format('Y-m-d');
 		}
 
-		$out['collections'] = explode(",",get($this->fields,'collections',''));
+		$out['collections'] = get($this->fields,'collections',[]);
 		foreach($this->fields as $name => $value) {
 			if(!in_array($name,$builtins)) {
 				$out[$name] = $value;
