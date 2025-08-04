@@ -11,6 +11,14 @@ if(get($_GET,'hide_pdf',false)) {
 }
 $format = get($_GET,'format','html');
 
+$headers = getallheaders();
+if(array_key_exists('Accept', $headers)) {
+    switch($headers['Accept']) {
+        case 'application/json':
+            $format = 'json';
+    }
+}
+
 $ignore_fields = array('abstract','comment','title','url','urls','author','urldate','day','month','year','collections');
 if($entry->is_arxiv()) {
     $ignore_fields = array_merge($ignore_fields,array('archivePrefix','eprint','primaryClass'));
