@@ -24,7 +24,7 @@ $channel
   ->title($BIB->site_title)
   ->description($BIB->site_description)
   ->url($BIB->site_host . $BIB->root_url)
-  ->feed_url($BIB->site_host . reverse('rss'))
+  ->feedUrl($BIB->site_host . reverse('rss'))
   ->language($BIB->language)
   ->lastBuildDate($now->getTimestamp())
   ->appendTo($feed);
@@ -36,7 +36,7 @@ foreach($entries as $key=>$entry) {
       ->guid($entry->key)
       ->pubDate($entry->date_added->getTimestamp())
       ->author($entry->author)
-      ->url($BIB->site_host . reverse('view_entry',array('key'=>$entry->key)))
+      ->url($BIB->site_host . reverse('view_entry',array('entry_key'=>$entry->key)))
     ;
     if(array_key_exists("abstract",$entry->fields)) {
         $item->description($entry->fields['abstract']);

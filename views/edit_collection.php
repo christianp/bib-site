@@ -63,5 +63,5 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
 	}
 	$BIB->save_database();
 	$slugify = new Slugify();
-	redirect(reverse('view_collection',array('key'=>$slugify->slugify($collection_name))));
+	redirect(reverse('view_collection',array('slug'=>$slugify->slugify($collection_name))));
 }

@@ -65,6 +65,6 @@ if($_SERVER['REQUEST_METHOD']=='GET') {
 
         $BIB->db->records[$entry->key] = $entry;
         $BIB->save_database();
-        redirect(reverse('view_entry',array('key'=>$entry->key)));
+        redirect(reverse('view_entry',array('entry_key'=>$entry->key)));
 	}
 }

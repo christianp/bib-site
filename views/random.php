@@ -13,4 +13,4 @@ if($slug) {
 } else {
     $key = array_rand($BIB->db->records);
 }
-return redirect(reverse('view_entry',array('key'=>$key)).'?'.http_build_query($_GET));
+return redirect(reverse('view_entry',array('entry_key'=>$key)).'?'.http_build_query($_GET));

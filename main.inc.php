@@ -241,7 +241,7 @@ class BibSite {
             'nicetype' => $this->type_options[$entry->type],
             'collections' => $collections_data,
             'url' => $entry->urls[0],
-            'view' => url_origin($_SERVER).reverse('view_entry',array('key'=>$entry->key))
+            'view' => url_origin($_SERVER).reverse('view_entry',array('entry_key'=>$entry->key))
         ]);
         return $data;
     }

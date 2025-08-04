@@ -27,7 +27,7 @@ if($query) {
 	});
 	if(count($entries)==1) {
 		$entry = reset($entries);
-		redirect(reverse('view_entry',array('key'=>$entry->key)));
+		redirect(reverse('view_entry',array('entry_key'=>$entry->key)));
 	}
 }
 
